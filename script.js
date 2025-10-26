@@ -17,15 +17,16 @@ const observer = new IntersectionObserver(
     { threshold: 0.1 }
 );
 fadeEls.forEach((el) => observer.observe(el));
-
 const header = document.getElementById("main-header");
 
 window.addEventListener("scroll", () => {
     if (window.scrollY > 50) {
-        header.classList.add("shadow-md", "py-3");
-        header.classList.remove("py-6");
+        header.classList.add("shadow-md");
+        header.querySelector("div").classList.add("py-3");
+        header.querySelector("div").classList.remove("py-6");
     } else {
-        header.classList.remove("shadow-md", "py-3");
-        header.classList.add("py-6");
+        header.classList.remove("shadow-md");
+        header.querySelector("div").classList.remove("py-3");
+        header.querySelector("div").classList.add("py-6");
     }
 });
