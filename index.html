@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Comida corrida práctica y deliciosa para tu oficina. Entregas puntuales, menús balanceados y descuentos automáticos." />
+    <title>TuComidaDiaria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-white text-gray-800">
+    <!-- HEADER -->
+    <header class="max-w-6xl mx-auto px-6 py-6 flex justify-between items-center">
+        <div class="text-2xl font-semibold">TuComidaDiaria</div>
+        <nav id="navbar" class="hidden md:flex gap-8 text-sm text-gray-600" aria-label="Navegación principal">
+            <a href="#benefits" class="hover:text-black">Beneficios</a>
+            <a href="#why" class="hover:text-black">Por qué elegirnos</a>
+            <a href="#how" class="hover:text-black">Cómo funciona</a>
+            <a href="#about" class="hover:text-black">Quiénes somos</a>
+        </nav>
+        <button id="menu-toggle" class="md:hidden px-3 py-2 border rounded-md text-gray-600">
+            ☰
+        </button>
+    </header>
+
+    <!-- MENU MÓVIL -->
+    <div id="mobile-menu"
+        class="hidden flex-col bg-white border-t border-gray-200 absolute w-full left-0 top-16 p-6 space-y-4 text-center text-gray-700 z-50">
+        <a href="#benefits" class="block hover:text-green-600">Beneficios</a>
+        <a href="#why" class="block hover:text-green-600">Por qué elegirnos</a>
+        <a href="#how" class="block hover:text-green-600">Cómo funciona</a>
+        <a href="#about" class="block hover:text-green-600">Quiénes somos</a>
+        <a href="menu.html" class="block px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition">
+            Ver menú
+        </a>
+    </div>
+
+    <!-- HERO -->
+    <main class="flex-1 w-full max-w-4xl mx-auto px-6 py-20 text-center fade-in">
+        <h1 class="text-4xl font-bold leading-tight">
+            Comida práctica y deliciosa
+            <span class="text-green-600">para tu oficina</span>
+        </h1>
+        <p class="mt-4 text-gray-600 text-lg leading-relaxed max-w-2xl mx-auto">
+            Ordena tus comidas semanales y recibe platillos caseros, calientes y
+            balanceados, directamente en tu oficina. Sin complicaciones, sin
+            demoras, solo sabor auténtico.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+            <a href="menu.html"
+                class="px-6 py-3 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition text-sm font-semibold">Acceder
+                al menú</a>
+            <a href="#how" class="px-6 py-3 border border-gray-300 rounded-lg text-sm hover:bg-gray-100 transition">Cómo
+                funciona</a>
+        </div>
+
+        <ul id="benefits" class="mt-10 space-y-3 text-sm text-gray-600 text-left inline-block">
+            <li>✅ Entregas puntuales y sin costo extra</li>
+            <li>✅ Descuentos automáticos por plan semanal</li>
+            <li>✅ Menús balanceados y caseros</li>
+        </ul>
+    </main>
+
+    <!-- POR QUÉ ELEGIRNOS -->
+    <section id="why" class="py-20 bg-gray-50 border-t fade-in">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-semibold mb-6">¿Por qué elegirnos?</h2>
+            <div class="grid md:grid-cols-3 gap-10 text-gray-700">
+                <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="text-green-600 text-4xl mb-3">💸</div>
+                    <h3 class="font-semibold text-lg mb-2">Descuentos reales</h3>
+                    <p>Cuantos más días selecciones, más ahorras. Obtén hasta un <strong>20% de descuento</strong> en
+                        planes semanales o mensuales.</p>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="text-green-600 text-4xl mb-3">⏱️</div>
+                    <h3 class="font-semibold text-lg mb-2">Entrega puntual</h3>
+                    <p>Sabemos que tu tiempo vale. Entregamos justo a la hora del almuerzo, sin retrasos ni cargos
+                        extra.</p>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition">
+                    <div class="text-green-600 text-4xl mb-3">🥗</div>
+                    <h3 class="font-semibold text-lg mb-2">Comida casera</h3>
+                    <p>Recetas auténticas, balanceadas y preparadas con ingredientes frescos, tal como en casa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section id="how" class="bg-white py-16 border-t fade-in">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-semibold">¿Cómo funciona?</h2>
+            <div class="mt-10 grid md:grid-cols-3 gap-10 text-gray-600">
+                <div>
+                    <div class="text-green-600 text-4xl mb-3">🥗</div>
+                    <p>1. Accede al menú semanal y elige tus comidas favoritas.</p>
+                </div>
+                <div>
+                    <div class="text-green-600 text-4xl mb-3">📱</div>
+                    <p>2. Confirma tu pedido fácilmente por WhatsApp.</p>
+                </div>
+                <div>
+                    <div class="text-green-600 text-4xl mb-3">🚚</div>
+                    <p>3. Recibe tu comida caliente y lista para disfrutar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUIÉNES SOMOS -->
+    <section id="about" class="py-20 border-t fade-in">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-semibold mb-4">Quiénes somos</h2>
+            <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">
+                Somos un equipo apasionado por la buena comida y el servicio eficiente.
+                Combinamos recetas caseras con un sistema ágil de pedidos y entregas
+                para oficinas. Nuestra misión es que cada comida sea práctica,
+                deliciosa y con un toque hogareño.
+            </p>
+            <a href="https://wa.me/5215555555555?text=Hola!%20Quiero%20más%20información%20sobre%20TuComidaDiaria"
+                target="_blank"
+                class="inline-block mt-6 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 shadow transition text-sm">
+                Contáctanos por WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 text-center text-sm text-gray-500 border-t fade-in">
+        © <span id="year"></span> TuComidaDiaria — Comida práctica, fresca y
+        deliciosa
+    </footer>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5215555555555?text=Hola!%20Quiero%20más%20información%20sobre%20TuComidaDiaria"
+        target="_blank"
+        class="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition"
+        aria-label="Chatea por WhatsApp">
+        💬
+    </a>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
