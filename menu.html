@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menú Semanal - TuComidaDiaria</title>
+  <title>Menú Semanal - Bibreak</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50 text-gray-900">
 
   <!-- HEADER -->
   <header class="bg-white shadow-sm">
     <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-green-600">TuComidaDiaria</h1>
+      <div class="flex items-center text-2xl font-bold text-green-600">
+        <span class="bg-green-600 text-white px-2 py-1 rounded-lg mr-2">Bi</span>
+        <span>break</span>
+      </div>
       <a href="index.html" class="text-sm text-gray-600 hover:text-green-600">← Volver al inicio</a>
     </div>
   </header>
@@ -24,6 +29,33 @@
       <p class="text-gray-600 mb-8">
         Selecciona los días y elige tu menú personalizado para cada uno.
       </p>
+
+      <!-- DESCUENTOS -->
+      <!-- DESCUENTOS -->
+      <div class="bg-green-50 border border-green-100 rounded-lg p-5 mb-10 text-center shadow-sm">
+        <p class="text-green-900 text-sm mb-3 font-medium">
+          💸 Entre más días elijas, ¡más ahorras!
+        </p>
+        <div class="flex flex-wrap justify-center gap-2 text-sm">
+          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">
+            1 comida: <b>$80</b>
+          </span>
+          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">
+            2 comidas: <b>$80</b>
+          </span>
+          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">
+            3 comidas: <b>$70</b>
+          </span>
+          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">
+            4 comidas: <b>$70</b>
+          </span>
+          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">
+            5 comidas: <b>$65</b>
+          </span>
+        </div>
+      </div>
+
+
 
       <!-- SELECCIÓN DE DÍAS -->
       <div id="daysContainer" class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-10">
@@ -69,4 +101,5 @@
 
   <script src="menu.js"></script>
 </body>
+
 </html>

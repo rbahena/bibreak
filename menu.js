@@ -119,3 +119,5 @@ enviarBtn.addEventListener("click", () => {
   const url = `https://wa.me/${telefono}?text=${mensaje}`;
   window.open(url, "_blank");
 });
+
+
