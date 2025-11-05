@@ -92,40 +92,65 @@ function actualizarResumen() {
 
 enviarBtn.addEventListener("click", () => {
   const dias = Array.from(selectedDays);
-  const nombre = document.getElementById("nombre").value.trim();
-  const empresa = document.getElementById("empresa").value.trim();
+  const nombreInput = document.getElementById("nombre");
+  const empresaInput = document.getElementById("empresa");
 
+  const nombre = nombreInput.value.trim();
+  const empresa = empresaInput.value.trim();
+
+  // Validar nombre
   if (!nombre) {
-    alert("Por favor, ingresa tu nombre completo antes de enviar el pedido.");
-    return;
-  }
-  if (dias.length === 0) {
-    alert("Selecciona al menos un día para continuar.");
+    alert("Por favor ingresa tu nombre completo antes de enviar el pedido.");
+    nombreInput.focus();
+    nombreInput.classList.add("border-red-500");
+    setTimeout(() => nombreInput.classList.remove("border-red-500"), 2000);
     return;
   }
 
+  // Validar empresa
+  if (!empresa) {
+    alert("Por favor ingresa el nombre de tu empresa.");
+    empresaInput.focus();
+    empresaInput.classList.add("border-red-500");
+    setTimeout(() => empresaInput.classList.remove("border-red-500"), 2000);
+    return;
+  }
+
+  // Validar días seleccionados
+  if (dias.length === 0) {
+    alert("Selecciona al menos un día para continuar con tu pedido.");
+    return;
+  }
+
+  // Calcular precios
   const precio = calcularPrecio(dias.length);
   const total = dias.length * precio;
 
+  // Construir detalle del pedido
   let detalle = dias.map(day => {
     const contenedor = document.getElementById(`menu-${day}`);
-    const entrada = contenedor.querySelector(".entrada").value;
-    const guarnicion = contenedor.querySelector(".guarnicion").value;
-    const fuerte = contenedor.querySelector(".fuerte").value;
-    return ` *${day}*\n ${entrada} |  ${guarnicion} |  ${fuerte}`;
+    if (!contenedor) return `*${day}*\n(No se encontró menú para este día)`;
+
+    const entrada = contenedor.querySelector(".entrada")?.value || "—";
+    const guarnicion = contenedor.querySelector(".guarnicion")?.value || "—";
+    const fuerte = contenedor.querySelector(".fuerte")?.value || "—";
+
+    return `*${day}*\n${entrada} | ${guarnicion} | ${fuerte}`;
   }).join("\n\n");
 
-  const encabezado = empresa
-    ? ` *Nombre:* ${nombre}\n *Empresa:* ${empresa}\n\n`
-    : ` *Nombre:* ${nombre}\n\n`;
+  // Construir encabezado
+  const encabezado = `*Nombre:* ${nombre}\n*Empresa:* ${empresa}\n\n`;
 
+  // Mensaje final
   const mensaje = encodeURIComponent(
-    `${encabezado} *Nuevo pedido semanal:*\n\n${detalle}\n\n *Total:* $${total} MXN\n\n¡Gracias por tu pedido!`
+    `${encabezado}*Nuevo pedido semanal:*\n\n${detalle}\n\n*Total:* $${total} MXN\n\n¡Gracias por tu pedido!`
   );
 
-  const telefono = "5537017294"; // <-- cambia por tu número de WhatsApp
+  // Enviar por WhatsApp
+  const telefono = "5537017294"; // <-- tu número
   const url = `https://wa.me/${telefono}?text=${mensaje}`;
   window.open(url, "_blank");
 });
+
 
 
