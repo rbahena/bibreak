@@ -90,67 +90,124 @@ function actualizarResumen() {
   `;
 }
 
-enviarBtn.addEventListener("click", () => {
-  const dias = Array.from(selectedDays);
-  const nombreInput = document.getElementById("nombre");
-  const empresaInput = document.getElementById("empresa");
 
-  const nombre = nombreInput.value.trim();
-  const empresa = empresaInput.value.trim();
+  enviarBtn.addEventListener("click", async () => {
+    const dias = Array.from(selectedDays);
+    const nombre = document.getElementById("nombre").value.trim();
+    const empresa = document.getElementById("empresa").value.trim();
 
-  // Validar nombre
-  if (!nombre) {
-    alert("Por favor ingresa tu nombre completo antes de enviar el pedido.");
-    nombreInput.focus();
-    nombreInput.classList.add("border-red-500");
-    setTimeout(() => nombreInput.classList.remove("border-red-500"), 2000);
-    return;
-  }
+    // Validaciones
+    if (!nombre) {
+      alert("Por favor ingresa tu nombre completo antes de enviar el pedido.");
+      return;
+    }
+    if (!empresa) {
+      alert("Por favor ingresa el nombre de tu empresa antes de continuar.");
+      return;
+    }
+    if (dias.length === 0) {
+      alert("Selecciona al menos un día para continuar con tu pedido.");
+      return;
+    }
 
-  // Validar empresa
-  if (!empresa) {
-    alert("Por favor ingresa el nombre de tu empresa.");
-    empresaInput.focus();
-    empresaInput.classList.add("border-red-500");
-    setTimeout(() => empresaInput.classList.remove("border-red-500"), 2000);
-    return;
-  }
+    // Calcular precios
+    const precio = calcularPrecio(dias.length);
+    const total = dias.length * precio;
 
-  // Validar días seleccionados
-  if (dias.length === 0) {
-    alert("Selecciona al menos un día para continuar con tu pedido.");
-    return;
-  }
+    // Fecha y hora actual
+    const ahora = new Date();
+    const opcionesFecha = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    };
+    const fechaGeneracion = ahora.toLocaleString('es-MX', opcionesFecha);
 
-  // Calcular precios
-  const precio = calcularPrecio(dias.length);
-  const total = dias.length * precio;
+    // Crear HTML temporal del resumen para imagen
+    const resumenDiv = document.createElement("div");
+    resumenDiv.style.padding = "20px";
+    resumenDiv.style.fontFamily = "Arial, sans-serif";
+    resumenDiv.style.background = "#f0fdf4";
+    resumenDiv.style.border = "1px solid #bbf7d0";
+    resumenDiv.style.borderRadius = "12px";
+    resumenDiv.style.width = "400px";
+    resumenDiv.style.color = "#166534";
 
-  // Construir detalle del pedido
-  let detalle = dias.map(day => {
-    const contenedor = document.getElementById(`menu-${day}`);
-    if (!contenedor) return `*${day}*\n(No se encontró menú para este día)`;
+    resumenDiv.innerHTML = `
+      <h2 style="color:#166534; margin-bottom:8px;">Pedido semanal</h2>
+      <p><strong>Nombre:</strong> ${nombre}</p>
+      <p><strong>Empresa:</strong> ${empresa}</p>
+      <p style="font-size: 12px; color:#065f46;"><em>Generado el ${fechaGeneracion}</em></p>
+      <hr style="margin:12px 0; border-color:#bbf7d0;">
+      ${dias.map(day => {
+      const contenedor = document.getElementById(`menu-${day}`);
+      const entrada = contenedor?.querySelector(".entrada")?.value || "—";
+      const guarnicion = contenedor?.querySelector(".guarnicion")?.value || "—";
+      const fuerte = contenedor?.querySelector(".fuerte")?.value || "—";
+      return `
+          <div style="margin-bottom:10px;">
+            <strong>${day}</strong><br>
+            ${entrada} | ${guarnicion} | ${fuerte}
+          </div>
+        `;
+    }).join("")}
+      <hr style="margin:12px 0; border-color:#bbf7d0;">
+      <p><strong>Total:</strong> $${total} MXN</p>
+    `;
 
-    const entrada = contenedor.querySelector(".entrada")?.value || "—";
-    const guarnicion = contenedor.querySelector(".guarnicion")?.value || "—";
-    const fuerte = contenedor.querySelector(".fuerte")?.value || "—";
+    // Agregar al DOM invisible para capturar la imagen
+    document.body.appendChild(resumenDiv);
+    resumenDiv.style.position = "absolute";
+    resumenDiv.style.left = "-9999px";
 
-    return `*${day}*\n${entrada} | ${guarnicion} | ${fuerte}`;
-  }).join("\n\n");
+    // Generar imagen
+    const canvas = await html2canvas(resumenDiv);
+    const dataUrl = canvas.toDataURL("image/png");
 
-  // Construir encabezado
-  const encabezado = `*Nombre:* ${nombre}\n*Empresa:* ${empresa}\n\n`;
+    // Descargar la imagen automáticamente
+    const enlace = document.createElement("a");
+    enlace.href = dataUrl;
+    enlace.download = `pedido_${nombre.replace(/\s+/g, "_")}.png`;
+    enlace.click();
 
-  // Mensaje final
-  const mensaje = encodeURIComponent(
-    `${encabezado}*Nuevo pedido semanal:*\n\n${detalle}\n\n*Total:* $${total} MXN\n\n¡Gracias por tu pedido!`
-  );
+    resumenDiv.remove();
 
-  // Enviar por WhatsApp
-  const telefono = "5537017294"; // <-- tu número
-  const url = `https://wa.me/${telefono}?text=${mensaje}`;
-  window.open(url, "_blank");
-});
+    // Texto para enviar a WhatsApp
+    let detalle = dias.map(day => {
+      const contenedor = document.getElementById(`menu-${day}`);
+      const entrada = contenedor.querySelector(".entrada").value;
+      const guarnicion = contenedor.querySelector(".guarnicion").value;
+      const fuerte = contenedor.querySelector(".fuerte").value;
+      return ` *${day}*\n ${entrada} | ${guarnicion} | ${fuerte}`;
+    }).join("\n\n");
+
+    const encabezado = empresa
+      ? ` *Nombre:* ${nombre}\n *Empresa:* ${empresa}\n\n`
+      : ` *Nombre:* ${nombre}\n\n`;
+
+    const mensaje = encodeURIComponent(
+      `${encabezado} *Nuevo pedido semanal:*\n\n${detalle}\n\n *Total:* $${total} MXN\n\n Generado el ${fechaGeneracion}`
+    );
+
+    const telefono = "5537017294"; // <-- Reemplaza por tu número real
+    const url = `https://wa.me/${telefono}?text=${mensaje}`;
+    window.open(url, "_blank");
+  });
 
 
+async function generarImagenPedido() {
+  const contenedor = document.getElementById("resumenPedido");
+
+  const canvas = await html2canvas(contenedor);
+  const dataUrl = canvas.toDataURL("image/png");
+
+  // Crear un enlace de descarga o mostrar la imagen
+  const link = document.createElement("a");
+  link.href = dataUrl;
+  link.download = "pedido.png";
+  link.click();
+}
 
