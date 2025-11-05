@@ -1,11 +1,13 @@
+// === AÑO EN FOOTER ===
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// === VARIABLES GLOBALES ===
 const dayButtons = document.querySelectorAll(".day-btn");
 const menusContainer = document.getElementById("menusContainer");
 const resumen = document.getElementById("resumen");
 const enviarBtn = document.getElementById("enviarPedido");
 let selectedDays = new Set();
-let menuData = {}; // Aquí se guardará el contenido del JSON
+let menuData = {}; // Contenido del JSON
 
 // === CARGAR MENU DESDE JSON ===
 async function cargarMenu() {
@@ -14,6 +16,22 @@ async function cargarMenu() {
     if (!response.ok) throw new Error("No se pudo cargar el menú");
     menuData = await response.json();
     console.log("Menú cargado correctamente");
+
+    // 🔹 Deshabilitar días según el campo "activo" del JSON
+    dayButtons.forEach(btn => {
+      const day = btn.dataset.day;
+      const config = menuData[day];
+      if (!config || config.activo === false) {
+        btn.disabled = true;
+        btn.classList.add("opacity-50", "cursor-not-allowed", "bg-gray-200");
+        btn.title = "Este día no está disponible por el momento";
+      } else {
+        // En caso de estar activo, restauramos el estilo por si cambia dinámicamente
+        btn.disabled = false;
+        btn.classList.remove("opacity-50", "cursor-not-allowed", "bg-gray-200");
+        btn.title = "Haz clic sobre el botón para seleccionar el día";
+      }
+    });
   } catch (error) {
     console.error("Error al cargar el menú:", error);
     alert("Hubo un problema al cargar el menú semanal.");
@@ -23,9 +41,9 @@ async function cargarMenu() {
 // === CREAR MENÚ DE UN DÍA ===
 function createMenuForDay(day) {
   const opciones = menuData[day];
-  if (!opciones) {
+  if (!opciones || opciones.activo === false) {
     return `<div class="bg-red-50 border border-red-200 p-4 rounded-lg">
-      <p class="text-red-700">No hay datos disponibles para ${day}.</p>
+      <p class="text-red-700">No hay servicio disponible para ${day}.</p>
     </div>`;
   }
 
@@ -59,6 +77,7 @@ function createMenuForDay(day) {
 dayButtons.forEach(btn => {
   btn.title = "Haz clic sobre el botón para seleccionar el día"; // Tooltip
   btn.addEventListener("click", () => {
+    if (btn.disabled) return; // Evita interacción si está deshabilitado
     const day = btn.dataset.day;
     if (selectedDays.has(day)) {
       selectedDays.delete(day);
@@ -145,7 +164,7 @@ enviarBtn.addEventListener("click", async () => {
   };
   const fechaGeneracion = ahora.toLocaleString("es-MX", opcionesFecha);
 
-  // Crear HTML temporal del resumen para imagen
+  // === GENERAR IMAGEN DEL RESUMEN ===
   const resumenDiv = document.createElement("div");
   resumenDiv.style.padding = "20px";
   resumenDiv.style.fontFamily = "Arial, sans-serif";
@@ -180,19 +199,16 @@ enviarBtn.addEventListener("click", async () => {
   resumenDiv.style.position = "absolute";
   resumenDiv.style.left = "-9999px";
 
-  // Generar imagen
   const canvas = await html2canvas(resumenDiv);
   const dataUrl = canvas.toDataURL("image/png");
 
-  // Descargar la imagen automáticamente
   const enlace = document.createElement("a");
   enlace.href = dataUrl;
   enlace.download = `pedido_${nombre.replace(/\s+/g, "_")}.png`;
   enlace.click();
-
   resumenDiv.remove();
 
-  // Texto de WhatsApp
+  // === MENSAJE DE WHATSAPP ===
   let detalle = dias.map(day => {
     const contenedor = document.getElementById(`menu-${day}`);
     const entrada = contenedor.querySelector(".entrada").value;
@@ -214,22 +230,15 @@ enviarBtn.addEventListener("click", async () => {
   window.open(url, "_blank");
 });
 
-// === Inicializar todo ===
-document.addEventListener("DOMContentLoaded", cargarMenu);
-
+// === OBTENER RANGO DE LA SEMANA ===
 function obtenerRangoSemana() {
   const hoy = new Date();
-
-  // Determinar el lunes de la semana
-  const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes, ...
+  const diaSemana = hoy.getDay();
   const lunes = new Date(hoy);
-  lunes.setDate(hoy.getDate() - ((diaSemana + 6) % 7)); // Retrocede hasta el lunes
-
-  // Viernes = lunes + 4 días
+  lunes.setDate(hoy.getDate() - ((diaSemana + 6) % 7));
   const viernes = new Date(lunes);
   viernes.setDate(lunes.getDate() + 4);
 
-  // Formateador con nombre de mes
   const formato = new Intl.DateTimeFormat("es-MX", {
     day: "2-digit",
     month: "long",
@@ -238,13 +247,14 @@ function obtenerRangoSemana() {
 
   const diaInicio = lunes.getDate().toString().padStart(2, "0");
   const diaFin = viernes.getDate().toString().padStart(2, "0");
-  const mes = formato.format(viernes).split(" ")[2]; // extrae mes textual
+  const mes = formato.format(viernes).split(" ")[2];
   const anio = viernes.getFullYear();
 
   return `(${diaInicio} al ${diaFin} de ${mes} ${anio})`;
 }
 
-// Insertar en la vista
+// === INICIALIZAR TODO ===
 document.addEventListener("DOMContentLoaded", () => {
+  cargarMenu();
   document.getElementById("rangoSemana").textContent = obtenerRangoSemana();
 });

@@ -1,27 +1,29 @@
 {
   "Lunes": {
-    "entrada": ["Ensalada verde", "Sopa de lentejas", "Sopa de fideo"],
-    "guarnicion": ["Arroz blanco", "Puré de papa"],
-    "fuerte": ["Pollo asado", "Pescado empanizado"]
+    "activo": false,
+    "entrada": ["Sopa", "Consomé", "Crema"],
+    "guarnicion": ["Arroz", "Pasta", "Ensalada"],
+    "fuerte": ["Pollo a la plancha", "Carne guisada", "Filete de pescado"]
   },
   "Martes": {
-    "entrada": ["Crema de elote", "Ensalada de nopales"],
-    "guarnicion": ["Frijoles refritos", "Espagueti rojo"],
-    "fuerte": ["Bistec a la mexicana", "Milanesa de pollo"]
+    "activo": true,
+    "entrada": ["Crema de elote", "Sopa de verduras"],
+    "guarnicion": ["Puré", "Arroz"],
+    "fuerte": ["Tacos dorados", "Enchiladas verdes"]
   },
   "Miércoles": {
-    "entrada": ["Sopa de verduras", "Ensalada de atún"],
-    "guarnicion": ["Arroz integral", "Verduras al vapor"],
-    "fuerte": ["Tinga de res", "Filete de pescado"]
+    "activo": false
   },
   "Jueves": {
-    "entrada": ["Sopa de pasta", "Ensalada César"],
-    "guarnicion": ["Puré de papa", "Frijoles charros"],
-    "fuerte": ["Carne en su jugo", "Pechuga empanizada"]
+    "activo": true,
+    "entrada": ["Consomé", "Sopa minestrone"],
+    "guarnicion": ["Pasta", "Ensalada"],
+    "fuerte": ["Carne asada", "Milanesa de pollo"]
   },
   "Viernes": {
-    "entrada": ["Crema de zanahoria", "Ensalada de frutas"],
-    "guarnicion": ["Arroz blanco", "Verduras salteadas"],
-    "fuerte": ["Tacos dorados", "Filete de pescado al mojo"]
+    "activo": true,
+    "entrada": ["Crema de champiñones", "Sopa de fideos"],
+    "guarnicion": ["Arroz", "Puré"],
+    "fuerte": ["Filete de pescado", "Tostadas de atún"]
   }
 }
