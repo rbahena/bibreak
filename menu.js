@@ -27,7 +27,7 @@ async function cargarMenu() {
 
       // Calcular fecha real del día
       const fecha = obtenerFechaPorIndice(index);
-      const fechaTexto = formatearFecha(fecha);
+      const fechaTexto = formatearFechaCompleta(fecha);
 
       if (!config || config.activo === false) {
         // Día inactivo
@@ -89,7 +89,7 @@ function createMenuForDay(day) {
 // =====================================================
 dayButtons.forEach(btn => {
   btn.addEventListener("click", () => {
-    if (btn.disabled) return; // Evita interacción si está deshabilitado
+    if (btn.disabled) return;
     const day = btn.dataset.day;
     if (selectedDays.has(day)) {
       selectedDays.delete(day);
@@ -116,7 +116,7 @@ function calcularPrecio(cantidad) {
     case cantidad === 3:
       return 75;
     default:
-      return 80; // 1 o 2 comidas
+      return 80;
   }
 }
 
@@ -156,7 +156,6 @@ enviarBtn.addEventListener("click", async () => {
   const nombre = document.getElementById("nombre").value.trim();
   const empresa = document.getElementById("empresa").value.trim();
 
-  // Validaciones
   if (!nombre) {
     alert("Por favor ingresa tu nombre completo antes de enviar el pedido.");
     return;
@@ -170,24 +169,14 @@ enviarBtn.addEventListener("click", async () => {
     return;
   }
 
-  // Calcular precios
   const precio = calcularPrecio(dias.length);
   const total = dias.length * precio;
   const sinDescuento = dias.length * 80;
   const ahorro = sinDescuento - total;
   const porcentajeDescuento = Math.round((ahorro / sinDescuento) * 100);
 
-  // Fecha y hora actual
   const ahora = new Date();
-  const opcionesFecha = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
-  };
-  const fechaGeneracion = ahora.toLocaleString("es-MX", opcionesFecha);
+  const fechaGeneracion = formatearFechaCompleta(ahora, true);
 
   // === GENERAR IMAGEN DEL RESUMEN ===
   const resumenDiv = document.createElement("div");
@@ -206,14 +195,15 @@ enviarBtn.addEventListener("click", async () => {
     <p style="font-size: 12px; color:#065f46;"><em>Generado el ${fechaGeneracion}</em></p>
     <hr style="margin:12px 0; border-color:#bbf7d0;">
     ${dias
-      .map(day => {
+      .map((day, index) => {
+        const fecha = formatearFechaCompleta(obtenerFechaPorIndice(index));
         const contenedor = document.getElementById(`menu-${day}`);
         const entrada = contenedor?.querySelector(".entrada")?.value || "—";
         const guarnicion = contenedor?.querySelector(".guarnicion")?.value || "—";
         const fuerte = contenedor?.querySelector(".fuerte")?.value || "—";
         return `
         <div style="margin-bottom:10px;">
-          <strong>${day}</strong><br>
+          <strong>${day} (${fecha})</strong><br>
           ${entrada} | ${guarnicion} | ${fuerte}
         </div>`;
       })
@@ -232,7 +222,6 @@ enviarBtn.addEventListener("click", async () => {
 
   const canvas = await html2canvas(resumenDiv);
   const dataUrl = canvas.toDataURL("image/png");
-
   const enlace = document.createElement("a");
   enlace.href = dataUrl;
   enlace.download = `pedido_${nombre.replace(/\s+/g, "_")}.png`;
@@ -241,12 +230,13 @@ enviarBtn.addEventListener("click", async () => {
 
   // === MENSAJE DE WHATSAPP ===
   let detalle = dias
-    .map(day => {
+    .map((day, index) => {
+      const fecha = formatearFechaCompleta(obtenerFechaPorIndice(index));
       const contenedor = document.getElementById(`menu-${day}`);
       const entrada = contenedor.querySelector(".entrada").value;
       const guarnicion = contenedor.querySelector(".guarnicion").value;
       const fuerte = contenedor.querySelector(".fuerte").value;
-      return `*${day}*\n${entrada} | ${guarnicion} | ${fuerte}`;
+      return `*${day}* (${fecha})\n${entrada} | ${guarnicion} | ${fuerte}`;
     })
     .join("\n\n");
 
@@ -257,10 +247,10 @@ enviarBtn.addEventListener("click", async () => {
   let mensaje = `${encabezado}*Nuevo pedido semanal:*\n\n${detalle}\n\n*Total:* $${total} MXN`;
 
   if (ahorro > 0) {
-    mensaje += `\n *Descuento aplicado:* ${porcentajeDescuento}% (-$${ahorro} MXN)`;
+    mensaje += `\n*Descuento aplicado:* ${porcentajeDescuento}% (-$${ahorro} MXN)`;
   }
 
-  mensaje += `\n\n Generado el ${fechaGeneracion}`;
+  mensaje += `\n\n*Generado el:* ${fechaGeneracion}`;
 
   const telefono = "5537017294";
   const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
@@ -303,9 +293,13 @@ function obtenerFechaPorIndice(indice) {
   return fecha;
 }
 
-function formatearFecha(fecha) {
-  const opciones = { day: "2-digit", month: "long", year: "numeric" };
-  return fecha.toLocaleDateString("es-MX", opciones);
+// 🟢 Nueva función para formato completo
+function formatearFechaCompleta(fecha, incluirHora = false) {
+  const opciones = { weekday: "long", day: "2-digit", month: "short", year: "numeric" };
+  if (incluirHora) opciones.hour = "2-digit", opciones.minute = "2-digit";
+  return fecha.toLocaleDateString("es-MX", opciones)
+    .replace(".", "")
+    .replace(/\b\w/g, c => c.toLowerCase());
 }
 
 // =====================================================
