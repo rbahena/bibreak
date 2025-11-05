@@ -58,13 +58,45 @@
 
 
       <!-- SELECCIÓN DE DÍAS -->
+      <!-- SELECCIÓN DE DÍAS -->
       <div id="daysContainer" class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-10">
-        <button class="day-btn border rounded-lg py-3 hover:bg-green-50" data-day="Lunes">Lunes</button>
-        <button class="day-btn border rounded-lg py-3 hover:bg-green-50" data-day="Martes">Martes</button>
-        <button class="day-btn border rounded-lg py-3 hover:bg-green-50" data-day="Miércoles">Miércoles</button>
-        <button class="day-btn border rounded-lg py-3 hover:bg-green-50" data-day="Jueves">Jueves</button>
-        <button class="day-btn border rounded-lg py-3 hover:bg-green-50" data-day="Viernes">Viernes</button>
+        <button class="day-btn relative group border rounded-lg py-3 hover:bg-green-50 transition" data-day="Lunes">
+          Lunes
+          <span
+            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
+            Haz clic para seleccionar
+          </span>
+        </button>
+        <button class="day-btn relative group border rounded-lg py-3 hover:bg-green-50 transition" data-day="Martes">
+          Martes
+          <span
+            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
+            Haz clic para seleccionar
+          </span>
+        </button>
+        <button class="day-btn relative group border rounded-lg py-3 hover:bg-green-50 transition" data-day="Miércoles">
+          Miércoles
+          <span
+            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
+            Haz clic para seleccionar
+          </span>
+        </button>
+        <button class="day-btn relative group border rounded-lg py-3 hover:bg-green-50 transition" data-day="Jueves">
+          Jueves
+          <span
+            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
+            Haz clic para seleccionar
+          </span>
+        </button>
+        <button class="day-btn relative group border rounded-lg py-3 hover:bg-green-50 transition" data-day="Viernes">
+          Viernes
+          <span
+            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
+            Haz clic para seleccionar
+          </span>
+        </button>
       </div>
+
 
       <!-- MENÚS POR DÍA -->
       <div id="menusContainer" class="space-y-8"></div>
@@ -96,7 +128,7 @@
   </main>
 
   <footer class="text-center py-6 text-sm text-gray-500 border-t mt-10">
-    © <span id="year"></span> TuComidaDiaria — Comida práctica, fresca y deliciosa
+    © <span id="year"></span> bibreak — Comida práctica, fresca y deliciosa
   </footer>
 
   <script src="menu.js"></script>
