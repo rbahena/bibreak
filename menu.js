@@ -9,7 +9,9 @@ const enviarBtn = document.getElementById("enviarPedido");
 let selectedDays = new Set();
 let menuData = {}; // Contenido del JSON
 
+// =====================================================
 // === CARGAR MENU DESDE JSON ===
+// =====================================================
 async function cargarMenu() {
   try {
     const response = await fetch("menu.json");
@@ -45,7 +47,9 @@ async function cargarMenu() {
   }
 }
 
+// =====================================================
 // === CREAR MENÚ DE UN DÍA ===
+// =====================================================
 function createMenuForDay(day) {
   const opciones = menuData[day];
   if (!opciones || opciones.activo === false) {
@@ -80,7 +84,9 @@ function createMenuForDay(day) {
   </div>`;
 }
 
+// =====================================================
 // === EVENTOS PARA LOS BOTONES DE DÍAS ===
+// =====================================================
 dayButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     if (btn.disabled) return; // Evita interacción si está deshabilitado
@@ -98,7 +104,9 @@ dayButtons.forEach(btn => {
   });
 });
 
-// === FUNCIÓN DE PRECIOS ===
+// =====================================================
+// === FUNCIÓN DE PRECIOS Y DESCUENTOS ===
+// =====================================================
 function calcularPrecio(cantidad) {
   switch (true) {
     case cantidad >= 5:
@@ -112,7 +120,9 @@ function calcularPrecio(cantidad) {
   }
 }
 
-// === ACTUALIZAR RESUMEN ===
+// =====================================================
+// === ACTUALIZAR RESUMEN EN PANTALLA ===
+// =====================================================
 function actualizarResumen() {
   const dias = Array.from(selectedDays);
   const cantidad = dias.length;
@@ -125,16 +135,22 @@ function actualizarResumen() {
   const total = cantidad * precioUnitario;
   const sinDescuento = cantidad * 80;
   const ahorro = sinDescuento - total;
+  const porcentajeDescuento = Math.round((ahorro / sinDescuento) * 100);
 
   resumen.innerHTML = `
     <strong>Días seleccionados:</strong> ${dias.join(", ")} <br>
     <strong>Precio unitario:</strong> $${precioUnitario} MXN <br>
     <strong>Total:</strong> $${total} MXN <br>
-    <span class="text-green-700 font-semibold">¡Ahorras $${ahorro} MXN!</span>
+    ${ahorro > 0
+      ? `<span class="text-green-700 font-semibold">¡Ahorras $${ahorro} MXN (${porcentajeDescuento}%)!</span>`
+      : ""
+    }
   `;
 }
 
-// === EVENTO DE ENVÍO ===
+// =====================================================
+// === EVENTO DE ENVÍO Y GENERACIÓN DE WHATSAPP ===
+// =====================================================
 enviarBtn.addEventListener("click", async () => {
   const dias = Array.from(selectedDays);
   const nombre = document.getElementById("nombre").value.trim();
@@ -157,6 +173,9 @@ enviarBtn.addEventListener("click", async () => {
   // Calcular precios
   const precio = calcularPrecio(dias.length);
   const total = dias.length * precio;
+  const sinDescuento = dias.length * 80;
+  const ahorro = sinDescuento - total;
+  const porcentajeDescuento = Math.round((ahorro / sinDescuento) * 100);
 
   // Fecha y hora actual
   const ahora = new Date();
@@ -186,19 +205,25 @@ enviarBtn.addEventListener("click", async () => {
     <p><strong>Empresa:</strong> ${empresa}</p>
     <p style="font-size: 12px; color:#065f46;"><em>Generado el ${fechaGeneracion}</em></p>
     <hr style="margin:12px 0; border-color:#bbf7d0;">
-    ${dias.map(day => {
-    const contenedor = document.getElementById(`menu-${day}`);
-    const entrada = contenedor?.querySelector(".entrada")?.value || "—";
-    const guarnicion = contenedor?.querySelector(".guarnicion")?.value || "—";
-    const fuerte = contenedor?.querySelector(".fuerte")?.value || "—";
-    return `
+    ${dias
+      .map(day => {
+        const contenedor = document.getElementById(`menu-${day}`);
+        const entrada = contenedor?.querySelector(".entrada")?.value || "—";
+        const guarnicion = contenedor?.querySelector(".guarnicion")?.value || "—";
+        const fuerte = contenedor?.querySelector(".fuerte")?.value || "—";
+        return `
         <div style="margin-bottom:10px;">
           <strong>${day}</strong><br>
           ${entrada} | ${guarnicion} | ${fuerte}
         </div>`;
-  }).join("")}
+      })
+      .join("")}
     <hr style="margin:12px 0; border-color:#bbf7d0;">
     <p><strong>Total:</strong> $${total} MXN</p>
+    ${ahorro > 0
+      ? `<p style="color:#15803d; font-weight:bold;">Ahorraste $${ahorro} MXN (${porcentajeDescuento}%)</p>`
+      : ""
+    }
   `;
 
   document.body.appendChild(resumenDiv);
@@ -215,28 +240,36 @@ enviarBtn.addEventListener("click", async () => {
   resumenDiv.remove();
 
   // === MENSAJE DE WHATSAPP ===
-  let detalle = dias.map(day => {
-    const contenedor = document.getElementById(`menu-${day}`);
-    const entrada = contenedor.querySelector(".entrada").value;
-    const guarnicion = contenedor.querySelector(".guarnicion").value;
-    const fuerte = contenedor.querySelector(".fuerte").value;
-    return ` *${day}*\n ${entrada} | ${guarnicion} | ${fuerte}`;
-  }).join("\n\n");
+  let detalle = dias
+    .map(day => {
+      const contenedor = document.getElementById(`menu-${day}`);
+      const entrada = contenedor.querySelector(".entrada").value;
+      const guarnicion = contenedor.querySelector(".guarnicion").value;
+      const fuerte = contenedor.querySelector(".fuerte").value;
+      return `*${day}*\n${entrada} | ${guarnicion} | ${fuerte}`;
+    })
+    .join("\n\n");
 
   const encabezado = empresa
-    ? ` *Nombre:* ${nombre}\n *Empresa:* ${empresa}\n\n`
-    : ` *Nombre:* ${nombre}\n\n`;
+    ? `*Nombre:* ${nombre}\n*Empresa:* ${empresa}\n\n`
+    : `*Nombre:* ${nombre}\n\n`;
 
-  const mensaje = encodeURIComponent(
-    `${encabezado} *Nuevo pedido semanal:*\n\n${detalle}\n\n *Total:* $${total} MXN\n\n Generado el ${fechaGeneracion}`
-  );
+  let mensaje = `${encabezado}*Nuevo pedido semanal:*\n\n${detalle}\n\n*Total:* $${total} MXN`;
+
+  if (ahorro > 0) {
+    mensaje += `\n *Descuento aplicado:* ${porcentajeDescuento}% (-$${ahorro} MXN)`;
+  }
+
+  mensaje += `\n\n Generado el ${fechaGeneracion}`;
 
   const telefono = "5537017294";
-  const url = `https://wa.me/${telefono}?text=${mensaje}`;
+  const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
   window.open(url, "_blank");
 });
 
-// === OBTENER RANGO DE LA SEMANA ===
+// =====================================================
+// === FUNCIONES DE FECHA Y SEMANA ===
+// =====================================================
 function obtenerRangoSemana() {
   const hoy = new Date();
   const diaSemana = hoy.getDay();
@@ -259,17 +292,12 @@ function obtenerRangoSemana() {
   return `(${diaInicio} al ${diaFin} de ${mes} ${anio})`;
 }
 
-// === FUNCIONES DE FECHA PARA TOOLTIP ===
 function obtenerFechaPorIndice(indice) {
-  // Calcula el lunes de la semana actual (no el siguiente)
   const hoy = new Date();
-  const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes, ...
-  // número de días que hay que retroceder para llegar al lunes de esta semana
-  const diasRetroceder = (diaSemana + 6) % 7; // 0 si es lunes, 1 si es martes, 2 si es miércoles, ...
+  const diaSemana = hoy.getDay();
+  const diasRetroceder = (diaSemana + 6) % 7;
   const lunes = new Date(hoy);
   lunes.setDate(hoy.getDate() - diasRetroceder);
-
-  // Obtenemos la fecha correspondiente al índice (0 = lunes, 1 = martes, ...)
   const fecha = new Date(lunes);
   fecha.setDate(lunes.getDate() + indice);
   return fecha;
@@ -280,7 +308,9 @@ function formatearFecha(fecha) {
   return fecha.toLocaleDateString("es-MX", opciones);
 }
 
+// =====================================================
 // === INICIALIZAR TODO ===
+// =====================================================
 document.addEventListener("DOMContentLoaded", () => {
   cargarMenu();
   document.getElementById("rangoSemana").textContent = obtenerRangoSemana();
