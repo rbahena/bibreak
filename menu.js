@@ -209,7 +209,8 @@ enviarBtn.addEventListener("click", async () => {
       })
       .join("")}
     <hr style="margin:12px 0; border-color:#bbf7d0;">
-    <p><strong>Total:</strong> $${total} MXN</p>
+    <p><strong>Total sin descuento:</strong> $${sinDescuento} MXN</p>
+    <p><strong>Total con descuento:</strong> $${total} MXN</p>
     ${ahorro > 0
       ? `<p style="color:#15803d; font-weight:bold;">Ahorraste $${ahorro} MXN (${porcentajeDescuento}%)</p>`
       : ""
@@ -244,13 +245,13 @@ enviarBtn.addEventListener("click", async () => {
     ? `*Nombre:* ${nombre}\n*Empresa:* ${empresa}\n\n`
     : `*Nombre:* ${nombre}\n\n`;
 
-  let mensaje = `${encabezado}*Nuevo pedido semanal:*\n\n${detalle}\n\n*Total:* $${total} MXN`;
+  let mensaje = `${encabezado}*Nuevo pedido semanal:*\n\n${detalle}\n\n *Total sin descuento:* $${sinDescuento} MXN\n *Total con descuento:* $${total} MXN`;
 
   if (ahorro > 0) {
-    mensaje += `\n*Descuento aplicado:* ${porcentajeDescuento}% (-$${ahorro} MXN)`;
+    mensaje += `\n *Ahorro:* $${ahorro} MXN (${porcentajeDescuento}%)`;
   }
 
-  mensaje += `\n\n*Generado el:* ${fechaGeneracion}`;
+  mensaje += `\n\n *Generado el:* ${fechaGeneracion}`;
 
   const telefono = "5537017294";
   const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
