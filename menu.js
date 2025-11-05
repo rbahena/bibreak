@@ -57,10 +57,18 @@ dayButtons.forEach(btn => {
 });
 
 function calcularPrecio(cantidad) {
-  if (cantidad >= 5) return 65;
-  if (cantidad >= 3) return 70;
-  return 80;
+  switch (true) {
+    case (cantidad >= 5):
+      return 65;
+    case (cantidad === 4):
+      return 70;
+    case (cantidad === 3):
+      return 75;
+    default:
+      return 80; // Para 1 o 2 comidas
+  }
 }
+
 
 function actualizarResumen() {
   const dias = Array.from(selectedDays);
