@@ -261,12 +261,15 @@ function obtenerRangoSemana() {
 
 // === FUNCIONES DE FECHA PARA TOOLTIP ===
 function obtenerFechaPorIndice(indice) {
+  // Calcula el lunes de la semana actual (no el siguiente)
   const hoy = new Date();
-  const diaActual = hoy.getDay();
-  const diasHastaLunes = (1 - diaActual + 7) % 7;
+  const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes, ...
+  // número de días que hay que retroceder para llegar al lunes de esta semana
+  const diasRetroceder = (diaSemana + 6) % 7; // 0 si es lunes, 1 si es martes, 2 si es miércoles, ...
   const lunes = new Date(hoy);
-  lunes.setDate(hoy.getDate() + diasHastaLunes);
+  lunes.setDate(hoy.getDate() - diasRetroceder);
 
+  // Obtenemos la fecha correspondiente al índice (0 = lunes, 1 = martes, ...)
   const fecha = new Date(lunes);
   fecha.setDate(lunes.getDate() + indice);
   return fecha;
