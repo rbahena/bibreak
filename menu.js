@@ -17,19 +17,26 @@ async function cargarMenu() {
     menuData = await response.json();
     console.log("Menú cargado correctamente");
 
-    // 🔹 Deshabilitar días según el campo "activo" del JSON
-    dayButtons.forEach(btn => {
+    // 🔹 Configurar días según el JSON
+    dayButtons.forEach((btn, index) => {
       const day = btn.dataset.day;
       const config = menuData[day];
+      const tooltip = btn.querySelector("span");
+
+      // Calcular fecha real del día
+      const fecha = obtenerFechaPorIndice(index);
+      const fechaTexto = formatearFecha(fecha);
+
       if (!config || config.activo === false) {
+        // Día inactivo
         btn.disabled = true;
         btn.classList.add("opacity-50", "cursor-not-allowed", "bg-gray-200");
-        btn.title = "Este día no está disponible por el momento";
+        tooltip.textContent = "Este día no brindaremos servicio";
       } else {
-        // En caso de estar activo, restauramos el estilo por si cambia dinámicamente
+        // Día activo
         btn.disabled = false;
         btn.classList.remove("opacity-50", "cursor-not-allowed", "bg-gray-200");
-        btn.title = "Haz clic sobre el botón para seleccionar el día";
+        tooltip.textContent = fechaTexto;
       }
     });
   } catch (error) {
@@ -75,7 +82,6 @@ function createMenuForDay(day) {
 
 // === EVENTOS PARA LOS BOTONES DE DÍAS ===
 dayButtons.forEach(btn => {
-  btn.title = "Haz clic sobre el botón para seleccionar el día"; // Tooltip
   btn.addEventListener("click", () => {
     if (btn.disabled) return; // Evita interacción si está deshabilitado
     const day = btn.dataset.day;
@@ -251,6 +257,24 @@ function obtenerRangoSemana() {
   const anio = viernes.getFullYear();
 
   return `(${diaInicio} al ${diaFin} de ${mes} ${anio})`;
+}
+
+// === FUNCIONES DE FECHA PARA TOOLTIP ===
+function obtenerFechaPorIndice(indice) {
+  const hoy = new Date();
+  const diaActual = hoy.getDay();
+  const diasHastaLunes = (1 - diaActual + 7) % 7;
+  const lunes = new Date(hoy);
+  lunes.setDate(hoy.getDate() + diasHastaLunes);
+
+  const fecha = new Date(lunes);
+  fecha.setDate(lunes.getDate() + indice);
+  return fecha;
+}
+
+function formatearFecha(fecha) {
+  const opciones = { day: "2-digit", month: "long", year: "numeric" };
+  return fecha.toLocaleDateString("es-MX", opciones);
 }
 
 // === INICIALIZAR TODO ===
