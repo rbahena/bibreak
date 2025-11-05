@@ -216,3 +216,35 @@ enviarBtn.addEventListener("click", async () => {
 
 // === Inicializar todo ===
 document.addEventListener("DOMContentLoaded", cargarMenu);
+
+function obtenerRangoSemana() {
+  const hoy = new Date();
+
+  // Determinar el lunes de la semana
+  const diaSemana = hoy.getDay(); // 0 = domingo, 1 = lunes, ...
+  const lunes = new Date(hoy);
+  lunes.setDate(hoy.getDate() - ((diaSemana + 6) % 7)); // Retrocede hasta el lunes
+
+  // Viernes = lunes + 4 días
+  const viernes = new Date(lunes);
+  viernes.setDate(lunes.getDate() + 4);
+
+  // Formateador con nombre de mes
+  const formato = new Intl.DateTimeFormat("es-MX", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  });
+
+  const diaInicio = lunes.getDate().toString().padStart(2, "0");
+  const diaFin = viernes.getDate().toString().padStart(2, "0");
+  const mes = formato.format(viernes).split(" ")[2]; // extrae mes textual
+  const anio = viernes.getFullYear();
+
+  return `(${diaInicio} al ${diaFin} de ${mes} ${anio})`;
+}
+
+// Insertar en la vista
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("rangoSemana").textContent = obtenerRangoSemana();
+});
