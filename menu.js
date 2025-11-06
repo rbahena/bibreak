@@ -111,10 +111,8 @@ function calcularPrecio(cantidad) {
   switch (true) {
     case cantidad >= 5:
       return 65;
-    case cantidad === 4:
+    case cantidad >= 3:
       return 70;
-    case cantidad === 3:
-      return 75;
     default:
       return 80;
   }
