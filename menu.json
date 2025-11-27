@@ -9,7 +9,7 @@
 
   "menu": {
     "Lunes": {
-      "activo": false,
+      "activo": true,
       "entrada": ["Sopa", "Consomé", "Crema"],
       "guarnicion": ["Arroz", "Pasta", "Ensalada"],
       "fuerte": ["Pollo a la plancha", "Carne guisada", "Filete de pescado"]
