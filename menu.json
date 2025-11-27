@@ -9,14 +9,14 @@
 
   "menu": {
     "Lunes": {
-      "activo": true,
+      "activo": false,
       "entrada": ["Sopa", "Consomé", "Crema"],
       "guarnicion": ["Arroz", "Pasta", "Ensalada"],
       "fuerte": ["Pollo a la plancha", "Carne guisada", "Filete de pescado"]
     },
     "Martes": {
       "activo": true,
-      "entrada": ["Crema de elote", "Sopa de verduras"],
+      "entrada": ["Crema de elote", "Chilito de carne rica"],
       "guarnicion": ["Puré", "Arroz"],
       "fuerte": ["Tacos dorados", "Enchiladas verdes"]
     },

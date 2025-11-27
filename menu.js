@@ -1,96 +1,109 @@
+// =====================================
 // === AÑO EN FOOTER ===
+// =====================================
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// =====================================
 // === VARIABLES GLOBALES ===
+// =====================================
 const dayButtons = document.querySelectorAll(".day-btn");
 const menusContainer = document.getElementById("menusContainer");
 const resumen = document.getElementById("resumen");
 const enviarBtn = document.getElementById("enviarPedido");
+
 let selectedDays = new Set();
-let menuData = {}; // Contenido del JSON
+let menuData = {}; // JSON completo
+let empresaActual = null;
 
-// =====================================================
-// === CARGAR MENU DESDE JSON ===
-// =====================================================
-async function cargarMenu() {
-  try {
-    const response = await fetch("menu.json");
-    if (!response.ok) throw new Error("No se pudo cargar el menú");
-    menuData = await response.json();
-    console.log("Menú cargado correctamente");
-
-    // 🔹 Configurar días según el JSON
-    dayButtons.forEach((btn, index) => {
-      const day = btn.dataset.day;
-      const config = menuData[day];
-      const tooltip = btn.querySelector("span");
-
-      // Calcular fecha real del día
-      const fecha = obtenerFechaPorIndice(index);
-      const fechaTexto = formatearFechaCompleta(fecha);
-
-      if (!config || config.activo === false) {
-        // Día inactivo
-        btn.disabled = true;
-        btn.classList.add("opacity-50", "cursor-not-allowed", "bg-gray-200");
-        tooltip.textContent = "Este día no brindaremos servicio";
-      } else {
-        // Día activo
-        btn.disabled = false;
-        btn.classList.remove("opacity-50", "cursor-not-allowed", "bg-gray-200");
-        tooltip.textContent = fechaTexto;
-      }
-    });
-  } catch (error) {
-    console.error("Error al cargar el menú:", error);
-    alert("Hubo un problema al cargar el menú semanal.");
+// =====================================
+// === VALIDAR SESIÓN DE EMPRESA ===
+// =====================================
+function validarEmpresa() {
+  empresaActual = localStorage.getItem("empresa");
+  if (!empresaActual) {
+    alert("No se detectó empresa, regresando al inicio.");
+    window.location.href = "index.html";
+    return;
+  }
+  const inputEmpresa = document.getElementById("empresa");
+  if (inputEmpresa) {
+    inputEmpresa.value = empresaActual;
+    inputEmpresa.setAttribute("readonly", true);
   }
 }
 
-// =====================================================
-// === CREAR MENÚ DE UN DÍA ===
-// =====================================================
+// =====================================
+// === CARGAR MENU DESDE JSON ===
+// =====================================
+async function cargarMenu() {
+  try {
+    const response = await fetch("menu.json");
+    if (!response.ok) throw new Error("No se pudo cargar JSON");
+    menuData = await response.json();
+
+    console.log("JSON cargado", menuData);
+    configurarDias();
+  } catch (e) {
+    console.error("Error:", e);
+    alert("Error cargando archivo menu.json");
+  }
+}
+
+// =====================================
+// === CONFIGURAR BOTONES DE DÍAS ===
+// =====================================
+function configurarDias() {
+  dayButtons.forEach((btn, index) => {
+    const day = btn.dataset.day;
+
+    // ✅ AQUÍ ESTÁ LA CORRECCIÓN CLAVE
+    const config = menuData.menu[day];
+
+    const tooltip = btn.querySelector("span");
+    const fecha = obtenerFechaPorIndice(index);
+    const fechaTexto = formatearFechaCompleta(fecha);
+
+    if (!config || config.activo === false) {
+      btn.disabled = true;
+      btn.classList.add("opacity-50", "cursor-not-allowed", "bg-gray-200");
+      tooltip.textContent = "Sin servicio";
+    } else {
+      btn.disabled = false;
+      btn.classList.remove("opacity-50", "cursor-not-allowed", "bg-gray-200");
+      tooltip.textContent = fechaTexto;
+    }
+  });
+}
+
+// =====================================
+// === CREAR MENÚ DEL DÍA ===
+// =====================================
 function createMenuForDay(day) {
-  const opciones = menuData[day];
+  const opciones = menuData.menu[day]; // ✅ CAMBIO
+
   if (!opciones || opciones.activo === false) {
-    return `<div class="bg-red-50 border border-red-200 p-4 rounded-lg">
-      <p class="text-red-700">No hay servicio disponible para ${day}.</p>
-    </div>`;
+    return `<div class="bg-red-50 p-3">No hay servicio para ${day}</div>`;
   }
 
   return `
-  <div id="menu-${day}" class="bg-white rounded-lg shadow p-6 border border-gray-100">
-    <h3 class="text-lg font-semibold mb-4 text-green-700">${day}</h3>
-    <div class="grid sm:grid-cols-3 gap-6">
-      <div>
-        <label class="block text-sm font-medium mb-1">Entrada</label>
-        <select class="entrada w-full border rounded-lg p-2 text-sm">
-          ${opciones.entrada.map(item => `<option>${item}</option>`).join("")}
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-1">Guarnición</label>
-        <select class="guarnicion w-full border rounded-lg p-2 text-sm">
-          ${opciones.guarnicion.map(item => `<option>${item}</option>`).join("")}
-        </select>
-      </div>
-      <div>
-        <label class="block text-sm font-medium mb-1">Plato fuerte</label>
-        <select class="fuerte w-full border rounded-lg p-2 text-sm">
-          ${opciones.fuerte.map(item => `<option>${item}</option>`).join("")}
-        </select>
-      </div>
+  <div id="menu-${day}" class="bg-white p-4 rounded shadow border mb-3">
+    <h3 class="font-semibold text-green-700">${day}</h3>
+    <div class="grid sm:grid-cols-3 gap-3">
+      <select class="entrada">${opciones.entrada.map(x => `<option>${x}</option>`).join("")}</select>
+      <select class="guarnicion">${opciones.guarnicion.map(x => `<option>${x}</option>`).join("")}</select>
+      <select class="fuerte">${opciones.fuerte.map(x => `<option>${x}</option>`).join("")}</select>
     </div>
   </div>`;
 }
 
-// =====================================================
-// === EVENTOS PARA LOS BOTONES DE DÍAS ===
-// =====================================================
+// =====================================
+// === EVENTOS DE DÍAS ===
+// =====================================
 dayButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     if (btn.disabled) return;
     const day = btn.dataset.day;
+
     if (selectedDays.has(day)) {
       selectedDays.delete(day);
       btn.classList.remove("bg-green-600", "text-white");
@@ -104,207 +117,103 @@ dayButtons.forEach(btn => {
   });
 });
 
-// =====================================================
-// === FUNCIÓN DE PRECIOS Y DESCUENTOS ===
-// =====================================================
+// =====================================
+// === PRECIOS ===
+// =====================================
 function calcularPrecio(cantidad) {
-  switch (true) {
-    case cantidad >= 5:
-      return 65;
-    case cantidad >= 3:
-      return 70;
-    default:
-      return 80;
-  }
+  return cantidad >= 5 ? 65 : cantidad >= 3 ? 70 : 80;
 }
 
-// =====================================================
-// === ACTUALIZAR RESUMEN EN PANTALLA ===
-// =====================================================
+// =====================================
+// === RESUMEN ===
+// =====================================
 function actualizarResumen() {
-  const dias = Array.from(selectedDays);
-  const cantidad = dias.length;
-  if (cantidad === 0) {
-    resumen.textContent = "No has seleccionado días todavía.";
+  const dias = [...selectedDays];
+  if (!dias.length) {
+    resumen.textContent = "Selecciona días.";
     return;
   }
 
-  const precioUnitario = calcularPrecio(cantidad);
-  const total = cantidad * precioUnitario;
-  const sinDescuento = cantidad * 80;
-  const ahorro = sinDescuento - total;
-  const porcentajeDescuento = Math.round((ahorro / sinDescuento) * 100);
+  const unit = calcularPrecio(dias.length);
+  const total = unit * dias.length;
+  const sin = dias.length * 80;
+  const ahorro = sin - total;
+  const pct = Math.round((ahorro / sin) * 100);
 
   resumen.innerHTML = `
-    <strong>Días seleccionados:</strong> ${dias.join(", ")} <br>
-    <strong>Precio unitario:</strong> $${precioUnitario} MXN <br>
-    <strong>Total:</strong> $${total} MXN <br>
-    ${ahorro > 0
-      ? `<span class="text-green-700 font-semibold">¡Ahorras $${ahorro} MXN (${porcentajeDescuento}%)!</span>`
-      : ""
-    }
+  <b>Días:</b> ${dias.join(", ")}<br>
+  <b>Unitario:</b> $${unit}<br>
+  <b>Total:</b> $${total}<br>
+  ${ahorro > 0 ? `Ahorras $${ahorro} (${pct}%)` : ""}
   `;
 }
 
-// =====================================================
-// === EVENTO DE ENVÍO Y GENERACIÓN DE WHATSAPP ===
-// =====================================================
+// =====================================
+// === ENVÍO ===
+// =====================================
 enviarBtn.addEventListener("click", async () => {
-  const dias = Array.from(selectedDays);
+  const dias = [...selectedDays];
   const nombre = document.getElementById("nombre").value.trim();
-  const empresa = document.getElementById("empresa").value.trim();
+  const empresa = empresaActual;
 
-  if (!nombre) {
-    alert("Por favor ingresa tu nombre completo antes de enviar el pedido.");
-    return;
-  }
-  if (!empresa) {
-    alert("Por favor ingresa el nombre de tu empresa antes de continuar.");
-    return;
-  }
-  if (dias.length === 0) {
-    alert("Selecciona al menos un día para continuar con tu pedido.");
-    return;
-  }
+  if (!nombre) return alert("Ingresa tu nombre");
+  if (!dias.length) return alert("Selecciona al menos un día");
 
   const precio = calcularPrecio(dias.length);
-  const total = dias.length * precio;
-  const sinDescuento = dias.length * 80;
-  const ahorro = sinDescuento - total;
-  const porcentajeDescuento = Math.round((ahorro / sinDescuento) * 100);
+  const total = precio * dias.length;
+  const sin = dias.length * 80;
+  const ahorro = sin - total;
+  const pct = Math.round((ahorro / sin) * 100);
+  const fechaGen = formatearFechaCompleta(new Date(), true);
 
-  const ahora = new Date();
-  const fechaGeneracion = formatearFechaCompleta(ahora, true);
+  const detalle = dias.map((day, i) => {
+    const fecha = formatearFechaCompleta(obtenerFechaPorIndice(i));
+    const box = document.getElementById(`menu-${day}`);
+    return `*${day}* (${fecha})\n${box.querySelector(".entrada").value} | ${box.querySelector(".guarnicion").value} | ${box.querySelector(".fuerte").value}`;
+  }).join("\n\n");
 
-  // === GENERAR IMAGEN DEL RESUMEN ===
-  const resumenDiv = document.createElement("div");
-  resumenDiv.style.padding = "20px";
-  resumenDiv.style.fontFamily = "Arial, sans-serif";
-  resumenDiv.style.background = "#f0fdf4";
-  resumenDiv.style.border = "1px solid #bbf7d0";
-  resumenDiv.style.borderRadius = "12px";
-  resumenDiv.style.width = "400px";
-  resumenDiv.style.color = "#166534";
+  let msg = `*${nombre}*\nEmpresa: ${empresa}\n\n${detalle}\n\nTotal: $${total}`;
+  if (ahorro > 0) msg += `\nAhorras: $${ahorro} (${pct}%)`;
+  msg += `\nGenerado: ${fechaGen}`;
 
-  resumenDiv.innerHTML = `
-    <h2 style="color:#166534; margin-bottom:8px;">Pedido semanal</h2>
-    <p><strong>Nombre:</strong> ${nombre}</p>
-    <p><strong>Empresa:</strong> ${empresa}</p>
-    <p style="font-size: 12px; color:#065f46;"><em>Generado el ${fechaGeneracion}</em></p>
-    <hr style="margin:12px 0; border-color:#bbf7d0;">
-    ${dias
-      .map((day, index) => {
-        const fecha = formatearFechaCompleta(obtenerFechaPorIndice(index));
-        const contenedor = document.getElementById(`menu-${day}`);
-        const entrada = contenedor?.querySelector(".entrada")?.value || "—";
-        const guarnicion = contenedor?.querySelector(".guarnicion")?.value || "—";
-        const fuerte = contenedor?.querySelector(".fuerte")?.value || "—";
-        return `
-        <div style="margin-bottom:10px;">
-          <strong>${day} (${fecha})</strong><br>
-          ${entrada} | ${guarnicion} | ${fuerte}
-        </div>`;
-      })
-      .join("")}
-    <hr style="margin:12px 0; border-color:#bbf7d0;">
-    <p><strong>Total sin descuento:</strong> $${sinDescuento} MXN</p>
-    <p><strong>Total con descuento:</strong> $${total} MXN</p>
-    ${ahorro > 0
-      ? `<p style="color:#15803d; font-weight:bold;">Ahorraste $${ahorro} MXN (${porcentajeDescuento}%)</p>`
-      : ""
-    }
-  `;
-
-  document.body.appendChild(resumenDiv);
-  resumenDiv.style.position = "absolute";
-  resumenDiv.style.left = "-9999px";
-
-  const canvas = await html2canvas(resumenDiv);
-  const dataUrl = canvas.toDataURL("image/png");
-  const enlace = document.createElement("a");
-  enlace.href = dataUrl;
-  enlace.download = `pedido_${nombre.replace(/\s+/g, "_")}.png`;
-  enlace.click();
-  resumenDiv.remove();
-
-  // === MENSAJE DE WHATSAPP ===
-  let detalle = dias
-    .map((day, index) => {
-      const fecha = formatearFechaCompleta(obtenerFechaPorIndice(index));
-      const contenedor = document.getElementById(`menu-${day}`);
-      const entrada = contenedor.querySelector(".entrada").value;
-      const guarnicion = contenedor.querySelector(".guarnicion").value;
-      const fuerte = contenedor.querySelector(".fuerte").value;
-      return `*${day}* (${fecha})\n${entrada} | ${guarnicion} | ${fuerte}`;
-    })
-    .join("\n\n");
-
-  const encabezado = empresa
-    ? `*Nombre:* ${nombre}\n*Empresa:* ${empresa}\n\n`
-    : `*Nombre:* ${nombre}\n\n`;
-
-  let mensaje = `${encabezado}*Nuevo pedido semanal:*\n\n${detalle}\n\n *Total sin descuento:* $${sinDescuento} MXN\n *Total con descuento:* $${total} MXN`;
-
-  if (ahorro > 0) {
-    mensaje += `\n *Ahorro:* $${ahorro} MXN (${porcentajeDescuento}%)`;
-  }
-
-  mensaje += `\n\n *Generado el:* ${fechaGeneracion}`;
-
-  const telefono = "5537017294";
-  const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
-  window.open(url, "_blank");
+  window.open(`https://wa.me/5537017294?text=${encodeURIComponent(msg)}`, "_blank");
 });
 
-// =====================================================
-// === FUNCIONES DE FECHA Y SEMANA ===
-// =====================================================
-function obtenerRangoSemana() {
-  const hoy = new Date();
-  const diaSemana = hoy.getDay();
-  const lunes = new Date(hoy);
-  lunes.setDate(hoy.getDate() - ((diaSemana + 6) % 7));
-  const viernes = new Date(lunes);
-  viernes.setDate(lunes.getDate() + 4);
-
-  const formato = new Intl.DateTimeFormat("es-MX", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric"
-  });
-
-  const diaInicio = lunes.getDate().toString().padStart(2, "0");
-  const diaFin = viernes.getDate().toString().padStart(2, "0");
-  const mes = formato.format(viernes).split(" ")[2];
-  const anio = viernes.getFullYear();
-
-  return `(${diaInicio} al ${diaFin} de ${mes} ${anio})`;
+// =====================================
+// === FECHAS ===
+// =====================================
+function obtenerFechaPorIndice(i) {
+  const h = new Date();
+  const d = (h.getDay() + 6) % 7;
+  const l = new Date(h);
+  l.setDate(h.getDate() - d);
+  const f = new Date(l);
+  f.setDate(l.getDate() + i);
+  return f;
 }
 
-function obtenerFechaPorIndice(indice) {
-  const hoy = new Date();
-  const diaSemana = hoy.getDay();
-  const diasRetroceder = (diaSemana + 6) % 7;
-  const lunes = new Date(hoy);
-  lunes.setDate(hoy.getDate() - diasRetroceder);
-  const fecha = new Date(lunes);
-  fecha.setDate(lunes.getDate() + indice);
-  return fecha;
+function formatearFechaCompleta(f, hora = false) {
+  const o = { weekday: "long", day: "2-digit", month: "short", year: "numeric" };
+  if (hora) { o.hour = "2-digit"; o.minute = "2-digit"; }
+  return f.toLocaleDateString("es-MX", o).replace(".", "").toLowerCase();
 }
 
-// 🟢 Nueva función para formato completo
-function formatearFechaCompleta(fecha, incluirHora = false) {
-  const opciones = { weekday: "long", day: "2-digit", month: "short", year: "numeric" };
-  if (incluirHora) opciones.hour = "2-digit", opciones.minute = "2-digit";
-  return fecha.toLocaleDateString("es-MX", opciones)
-    .replace(".", "")
-    .replace(/\b\w/g, c => c.toLowerCase());
-}
-
-// =====================================================
-// === INICIALIZAR TODO ===
-// =====================================================
+// =====================================
+// === INICIO ===
+// =====================================
 document.addEventListener("DOMContentLoaded", () => {
+  validarEmpresa();
   cargarMenu();
   document.getElementById("rangoSemana").textContent = obtenerRangoSemana();
 });
+
+function obtenerRangoSemana() {
+  const h = new Date();
+  const d = (h.getDay() + 6) % 7;
+  const l = new Date(h);
+  l.setDate(h.getDate() - d);
+  const v = new Date(l);
+  v.setDate(l.getDate() + 4);
+  const f = new Intl.DateTimeFormat("es-MX", { month: "long" });
+  return `(${l.getDate()} al ${v.getDate()} de ${f.format(v)} ${v.getFullYear()})`;
+}
