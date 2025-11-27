@@ -1,32 +1,42 @@
 {
-  "Lunes": {
-    "activo": true,
-    "entrada": ["Sopa", "Consomé", "Crema"],
-    "guarnicion": ["Arroz", "Pasta", "Ensalada"],
-    "fuerte": ["Pollo a la plancha", "Carne guisada", "Filete de pescado"]
-  },
-  "Martes": {
-    "activo": true,
-    "entrada": ["Crema de elote", "Sopa de verduras"],
-    "guarnicion": ["Puré", "Arroz"],
-    "fuerte": ["Tacos dorados", "Enchiladas verdes"]
-  },
-  "Miércoles": {
-     "activo": true,
-    "entrada": ["Sopa", "Consomé", "Crema"],
-    "guarnicion": ["Arroz", "Pasta", "Ensalada"],
-    "fuerte": ["Pollo a la plancha", "Carne guisada", "Filete de pescado"]
-  },
-  "Jueves": {
-    "activo": true,
-    "entrada": ["Consomé", "Sopa minestrone"],
-    "guarnicion": ["Pasta", "Ensalada"],
-    "fuerte": ["Carne asada", "Milanesa de pollo"]
-  },
-  "Viernes": {
-    "activo": true,
-    "entrada": ["Crema de champiñones", "Sopa de fideos"],
-    "guarnicion": ["Arroz", "Puré"],
-    "fuerte": ["Filete de pescado", "Tostadas de atún"]
+  "empresas": [
+    "Coca Cola",
+    "Bimbo",
+    "Grupo Salinas",
+    "Oficina Centro",
+    "Bibreak Demo"
+  ],
+
+  "menu": {
+    "Lunes": {
+      "activo": true,
+      "entrada": ["Sopa", "Consomé", "Crema"],
+      "guarnicion": ["Arroz", "Pasta", "Ensalada"],
+      "fuerte": ["Pollo a la plancha", "Carne guisada", "Filete de pescado"]
+    },
+    "Martes": {
+      "activo": true,
+      "entrada": ["Crema de elote", "Sopa de verduras"],
+      "guarnicion": ["Puré", "Arroz"],
+      "fuerte": ["Tacos dorados", "Enchiladas verdes"]
+    },
+    "Miércoles": {
+      "activo": true,
+      "entrada": ["Sopa", "Consomé", "Crema"],
+      "guarnicion": ["Arroz", "Pasta", "Ensalada"],
+      "fuerte": ["Pollo a la plancha", "Carne guisada", "Filete de pescado"]
+    },
+    "Jueves": {
+      "activo": true,
+      "entrada": ["Consomé", "Sopa minestrone"],
+      "guarnicion": ["Pasta", "Ensalada"],
+      "fuerte": ["Carne asada", "Milanesa de pollo"]
+    },
+    "Viernes": {
+      "activo": true,
+      "entrada": ["Crema de champiñones", "Sopa de fideos"],
+      "guarnicion": ["Arroz", "Puré"],
+      "fuerte": ["Filete de pescado", "Tostadas de atún"]
+    }
   }
 }
