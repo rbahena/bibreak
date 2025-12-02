@@ -35,16 +35,22 @@ function inicializarPersonas() {
 
 // AGREGAR PERSONA
 function agregarPersona() {
-  const total = document.querySelectorAll("#personasContainer > div").length;
-  const numero = total + 1;
+    const total = document.querySelectorAll("#personasContainer > div").length;
+    const numero = total + 1;
 
-  const div = document.createElement("div");
-  div.className = "bg-white p-4 rounded-xl shadow relative";
+    const div = document.createElement("div");
+    div.className = "bg-white p-4 rounded-xl shadow relative";
 
-  div.innerHTML = `
+    div.innerHTML = `
     <button class="eliminar absolute top-2 right-2 text-red-500 text-sm font-bold">✖</button>
 
-    <h3 class="font-semibold mb-3">Persona ${numero}</h3>
+    <h3 class="font-semibold mb-2">Persona ${numero}</h3>
+
+    <input 
+      type="text" 
+      placeholder="Nombre de la persona"
+      class="nombre w-full border p-2 rounded mb-3"
+    />
 
     <select class="entrada w-full border p-2 rounded mb-2" disabled>
       <option>Entrada</option>
@@ -59,12 +65,12 @@ function agregarPersona() {
     </select>
   `;
 
-  div.querySelector(".eliminar").addEventListener("click", () => {
-    eliminarPersona(div);
-  });
+    div.querySelector(".eliminar").addEventListener("click", () => {
+        eliminarPersona(div);
+    });
 
-  container.appendChild(div);
-  actualizarTotal();
+    container.appendChild(div);
+    actualizarTotal();
 }
 
 
@@ -113,6 +119,8 @@ document.getElementById("agregarPersona").addEventListener("click", () => {
 // WHATSAPP
 document.getElementById("confirmar").addEventListener("click", () => {
 
+    if (!validarNombres()) return;
+
     const dia = diaGeneral.value;
     if (!dia) return alert("Elige el día de entrega");
 
@@ -123,14 +131,13 @@ document.getElementById("confirmar").addEventListener("click", () => {
 
     cards.forEach((card, i) => {
 
+        const nombre = card.querySelector(".nombre").value || `Persona ${i + 1}`;
         const entrada = card.querySelector(".entrada").value;
         const guarnicion = card.querySelector(".guarnicion").value;
         const fuerte = card.querySelector(".fuerte").value;
 
         if (!entrada || !guarnicion || !fuerte) valido = false;
-
-        mensaje += `Persona ${i + 1}:\n` +
-            `${entrada} | ${guarnicion} | ${fuerte}\n\n`;
+        mensaje += `\n👤 ${nombre}\n- Entrada: ${entrada}\n- Guarnición: ${guarnicion}\n- Fuerte: ${fuerte}\n`;
     });
 
     if (!valido) return alert("Todos deben elegir su comida.");
@@ -144,29 +151,41 @@ document.getElementById("confirmar").addEventListener("click", () => {
 });
 
 function eliminarPersona(card) {
-  const personas = document.querySelectorAll("#personasContainer > div");
+    const personas = document.querySelectorAll("#personasContainer > div");
 
-  if (personas.length <= 3) {
-    alert("Debes mantener mínimo 3 personas");
-    return;
-  }
+    if (personas.length <= 3) {
+        alert("Debes mantener mínimo 3 personas");
+        return;
+    }
 
-  card.remove();
-  renumerarPersonas();
-  actualizarTotal();
+    card.remove();
+    renumerarPersonas();
+    actualizarTotal();
 }
 
 
 function renumerarPersonas() {
-  const cards = document.querySelectorAll("#personasContainer > div");
-  cards.forEach((card, i) => {
-    card.querySelector("h3").textContent = `Persona ${i + 1}`;
-  });
+    const cards = document.querySelectorAll("#personasContainer > div");
+    cards.forEach((card, i) => {
+        card.querySelector("h3").textContent = `Persona ${i + 1}`;
+    });
 }
 
 
 function actualizarTotal() {
-  const personas = document.querySelectorAll("#personasContainer > div").length;
-  totalEl.textContent = `$${personas * PRECIO} MXN`;
+    const personas = document.querySelectorAll("#personasContainer > div").length;
+    totalEl.textContent = `$${personas * PRECIO} MXN`;
+}
+
+function validarNombres() {
+    const nombres = document.querySelectorAll(".nombre");
+    for (let input of nombres) {
+        if (input.value.trim() === "") {
+            alert("Por favor escribe el nombre de todas las personas");
+            input.focus();
+            return false;
+        }
+    }
+    return true;
 }
 
