@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menú Semanal - Bibreak</title>
+  <title>Menú semanal - Bibreak</title>
+
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -12,176 +13,158 @@
 <body class="bg-gray-50 text-gray-900">
 
   <!-- HEADER -->
-  <header class="bg-white shadow-sm">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
 
-      <a href="../index.html" class="flex items-center text-2xl font-bold text-green-600 hover:opacity-90 transition">
-        <span class="bg-green-600 text-white px-2 py-1 rounded-lg mr-2">Bi</span>
+      <a href="../index.html" class="flex items-center text-lg font-bold text-green-600">
+        <span class="bg-green-600 text-white px-2 py-0.5 rounded mr-1">Bi</span>
         <span>break</span>
       </a>
 
-      <a href="../index.html" class="text-sm text-gray-600 hover:text-green-600">
-        ← Volver al inicio
+      <a href="../index.html" class="text-xs text-gray-500 hover:text-green-600">
+        ← Inicio
       </a>
 
     </div>
   </header>
 
-
   <!-- CONTENIDO -->
-  <main class="max-w-6xl mx-auto px-6 py-10 grid lg:grid-cols-3 gap-10">
-    <!-- Columna izquierda -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 grid lg:grid-cols-3 gap-6">
+
+    <!-- COLUMNA IZQUIERDA -->
     <div class="lg:col-span-2">
-      <h2 class="mb-3 flex items-center gap-3 flex-wrap">
 
-        <span class="text-[#1f2937] text-base sm:text-lg font-semibold tracking-wide">
-          Menú de la semana
-        </span>
+      <!-- TITULO -->
+      <div class="mb-5 flex flex-col sm:flex-row sm:items-center sm:gap-3">
 
-        <span id="rangoSemana" class="text-[#1f2937] text-base sm:text-lg font-semibold tracking-wide">
-        </span>
+        <div class="flex flex-col">
+          <span class="text-[#1f2937] text-sm uppercase tracking-wide font-medium">
+            Menú de la semana
+          </span>
+          <span id="rangoSemana" class="text-[#1f2937] text-lg font-semibold"></span>
+        </div>
 
-        <!-- BADGE PRO -->
-        <div class="relative group">
-
-          <div class="flex items-center gap-1 px-4 py-1 text-xs font-semibold rounded-full shadow-md cursor-pointer
-      bg-[#111827] text-white tracking-wider hover:scale-105 transition-transform
-      hover:shadow-lg hover:bg-[#0f172a]">
+        <!-- BADGE -->
+        <div class="relative group mt-2 sm:mt-0">
+          <div
+            class="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full shadow cursor-pointer bg-[#111827] text-white tracking-wide">
             Plan por día
           </div>
 
-          <!-- TOOLTIP -->
           <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 pointer-events-none
-      bg-gray-900 text-white text-xs rounded-md px-4 py-2 shadow-lg transition-all
-      w-60 text-center leading-relaxed">
-
-            Ordena solo cuando lo necesites, sin contratos ni compromisos semanales.
-
-            <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-3 h-3 bg-gray-900 rotate-45"></div>
+            bg-gray-900 text-white text-xs rounded-md px-3 py-2 shadow w-56 text-center">
+            Ordena solo cuando lo necesites.
           </div>
-
         </div>
 
-      </h2>
+      </div>
 
-
-
-
-
-
-      <p class="text-gray-600 mb-8">
-        Elige tus días y personaliza tu menú o revisa nuestros
-        <a href="../index.html#plans" class="text-blue-600 hover:text-blue-800 underline transition">
-          planes
-        </a>.
+      <!-- TEXTO -->
+      <p class="text-gray-600 text-sm mb-6">
+        Elige tus días y arma tu menú.
+        <a href="../index.html#plans" class="text-blue-600 underline">Ver planes</a>
       </p>
 
-
-
-
       <!-- DESCUENTOS -->
-      <div class="bg-green-50 border border-green-100 rounded-lg p-5 mb-10 text-center shadow-sm">
+      <div class="bg-green-50 border border-green-100 rounded-xl p-4 mb-8 text-center shadow-sm">
         <p class="text-green-900 text-sm mb-3 font-medium">
-          💸 Entre más días elijas, ¡más ahorras!
+          💸 Entre más días elijas, más ahorras
         </p>
         <div class="flex flex-wrap justify-center gap-2 text-sm">
-          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">
-            1 comida: <b>$90</b>
-          </span>
-          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">
-            2 comidas: <b>$90</b>
-          </span>
-          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">
-            3 comidas: <b>$85</b>
-          </span>
-          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">
-            4 comidas: <b>$85</b>
-          </span>
-          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">
-            5 comidas: <b>$80</b>
-          </span>
+          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">1 día
+            <b>$90</b></span>
+          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">2 días
+            <b>$90</b></span>
+          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">3 días
+            <b>$85</b></span>
+          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">4 días
+            <b>$85</b></span>
+          <span class="bg-white border border-green-200 text-green-800 px-3 py-1 rounded-full shadow-sm">5 días
+            <b>$80</b></span>
         </div>
       </div>
 
-
-
-      <!-- SELECCIÓN DE DÍAS -->
-      <!-- SELECCIÓN DE DÍAS -->
-      <div id="daysContainer" class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-10">
-        <button class="day-btn relative group border rounded-lg py-3 hover:bg-green-50 transition" data-day="Lunes">
-          Lunes
-          <span
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
-            Haz clic para seleccionar
-          </span>
+      <!-- DIAS -->
+      <div id="daysContainer" class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-8">
+        <button class="day-btn relative group border rounded-xl py-4 text-base hover:bg-green-50 transition"
+          data-day="Lunes">Lunes
+          <span class="tooltip">Seleccionar</span>
         </button>
-        <button class="day-btn relative group border rounded-lg py-3 hover:bg-green-50 transition" data-day="Martes">
-          Martes
-          <span
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
-            Haz clic para seleccionar
-          </span>
+        <button class="day-btn relative group border rounded-xl py-4 text-base hover:bg-green-50 transition"
+          data-day="Martes">Martes
+          <span class="tooltip">Seleccionar</span>
         </button>
-        <button class="day-btn relative group border rounded-lg py-3 hover:bg-green-50 transition" data-day="Miércoles">
-          Miércoles
-          <span
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
-            Haz clic para seleccionar
-          </span>
+        <button class="day-btn relative group border rounded-xl py-4 text-base hover:bg-green-50 transition"
+          data-day="Miércoles">Miércoles
+          <span class="tooltip">Seleccionar</span>
         </button>
-        <button class="day-btn relative group border rounded-lg py-3 hover:bg-green-50 transition" data-day="Jueves">
-          Jueves
-          <span
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
-            Haz clic para seleccionar
-          </span>
+        <button class="day-btn relative group border rounded-xl py-4 text-base hover:bg-green-50 transition"
+          data-day="Jueves">Jueves
+          <span class="tooltip">Seleccionar</span>
         </button>
-        <button class="day-btn relative group border rounded-lg py-3 hover:bg-green-50 transition" data-day="Viernes">
-          Viernes
-          <span
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap">
-            Haz clic para seleccionar
-          </span>
+        <button class="day-btn relative group border rounded-xl py-4 text-base hover:bg-green-50 transition"
+          data-day="Viernes">Viernes
+          <span class="tooltip">Seleccionar</span>
         </button>
       </div>
 
-
-      <!-- MENÚS POR DÍA -->
-      <div id="menusContainer" class="space-y-8"></div>
+      <!-- MENÚS -->
+      <div id="menusContainer" class="space-y-5"></div>
     </div>
 
-    <!-- Columna derecha (resumen siempre visible) -->
-    <aside class="lg:sticky lg:top-10 h-fit bg-green-50 border border-green-200 rounded-lg p-6 shadow-sm">
-      <h3 class="text-lg font-semibold mb-3 text-green-800">Resumen de pedido</h3>
+    <!-- RESUMEN -->
+    <aside class="bg-white border rounded-xl p-5 shadow-md">
 
-      <div class="mb-4">
-        <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
-        <input type="text" id="nombre" class="w-full border rounded-lg p-2 text-sm" placeholder="Ej. Juan Pérez" />
-        <p id="errorNombre" class="text-red-500 text-xs mt-1 hidden">Por favor, ingresa tu nombre completo.</p>
-      </div>
+      <h3 class="text-lg font-semibold mb-3 text-green-800">Resumen</h3>
 
-      <div class="mb-4">
-        <label for="empresa" class="block text-sm font-medium text-gray-700 mb-1">Nombre de la empresa</label>
-        <input type="text" id="empresa" class="w-full border rounded-lg p-2 text-sm" placeholder="Ej. SoftTech" />
-        <p id="errorEmpresa" class="text-red-500 text-xs mt-1 hidden">Por favor, ingresa el nombre de tu empresa.</p>
-      </div>
+      <input id="nombre" type="text" placeholder="Tu nombre completo"
+        class="w-full border rounded-lg p-2 mb-3 text-sm" />
+
+      <input id="empresa" type="text" placeholder="Empresa" class="w-full border rounded-lg p-2 mb-3 text-sm" />
 
       <p id="resumen" class="text-gray-700 text-sm mb-4">
-        No has seleccionado días todavía.
+        Selecciona días.
       </p>
 
       <button id="enviarPedido"
-        class="w-full px-6 py-3 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition text-sm font-semibold">
-        Enviar pedido por WhatsApp
+        class="w-full py-4 bg-green-600 text-white rounded-xl shadow font-semibold text-base active:scale-95">
+        Enviar pedido
       </button>
+
     </aside>
+
   </main>
 
-  <footer class="text-center py-6 text-sm text-gray-500 border-t mt-10">
-    © <span id="year"></span> bibreak — Comida práctica, fresca y deliciosa
+  <footer class="text-center py-4 text-xs text-gray-500 border-t">
+    © <span id="year"></span> Bibreak
   </footer>
 
   <script src="../js/menu.js"></script>
+
+  <style>
+    .tooltip {
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111827;
+      color: white;
+      padding: 4px 8px;
+      font-size: 10px;
+      border-radius: 4px;
+      display: none;
+      white-space: nowrap;
+    }
+
+    .group:hover .tooltip {
+      display: block;
+    }
+
+    .day-btn.bg-green-600 {
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+    }
+  </style>
+
 </body>
 
 </html>
