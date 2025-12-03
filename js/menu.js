@@ -13,7 +13,6 @@ const enviarBtn = document.getElementById("enviarPedido");
 
 let selectedDays = new Set();
 let menuData = {}; // JSON completo
-let empresaActual = null;
 
 
 // =====================================
@@ -62,23 +61,65 @@ function configurarDias() {
 // =====================================
 // === CREAR MENÚ DEL DÍA ===
 // =====================================
+// =====================================
+// === CREAR MENÚ CON RADIO BUTTONS ===
+// =====================================
 function createMenuForDay(day) {
-  const opciones = menuData.menu[day]; // ✅ CAMBIO
+  const opciones = menuData.menu[day];
 
   if (!opciones || opciones.activo === false) {
-    return `<div class="bg-red-50 p-3">No hay servicio para ${day}</div>`;
+    return `<div class="bg-red-50 p-3 rounded">No hay servicio para ${day}</div>`;
   }
 
+  const index = [...selectedDays].length;
+  const fecha = obtenerFechaPorIndice(index);
+  const fechaTexto = fecha.toLocaleDateString("es-MX", {
+    day: "2-digit",
+    month: "short"
+  });
+
+  const renderRadios = (lista, name) =>
+    lista.map((item, i) => `
+      <label class="flex items-center gap-2 border rounded-lg p-2 cursor-pointer hover:bg-green-50">
+        <input type="radio" name="${day}-${name}" value="${item}" class="accent-green-600" ${i === 0 ? "checked" : ""}>
+        <span class="text-sm">${item}</span>
+      </label>
+    `).join("");
+
   return `
-  <div id="menu-${day}" class="bg-white p-4 rounded shadow border mb-3">
-    <h3 class="font-semibold text-green-700">${day}</h3>
-    <div class="grid sm:grid-cols-3 gap-3">
-      <select class="entrada">${opciones.entrada.map(x => `<option>${x}</option>`).join("")}</select>
-      <select class="guarnicion">${opciones.guarnicion.map(x => `<option>${x}</option>`).join("")}</select>
-      <select class="fuerte">${opciones.fuerte.map(x => `<option>${x}</option>`).join("")}</select>
+  <div id="menu-${day}" class="bg-white p-4 rounded-xl shadow border">
+
+    <h3 class="font-semibold text-green-700 mb-3 flex items-center gap-2">
+      ${day}
+      <span class="text-gray-500 text-sm">${fechaTexto}</span>
+    </h3>
+
+    <div class="space-y-4">
+      <div>
+        <p class="text-sm font-medium mb-2">🥗 Entrada</p>
+        <div class="grid sm:grid-cols-2 gap-2">
+          ${renderRadios(opciones.entrada, "entrada")}
+        </div>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium mb-2">🍚 Guarnición</p>
+        <div class="grid sm:grid-cols-2 gap-2">
+          ${renderRadios(opciones.guarnicion, "guarnicion")}
+        </div>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium mb-2">🍗 Plato fuerte</p>
+        <div class="grid sm:grid-cols-2 gap-2">
+          ${renderRadios(opciones.fuerte, "fuerte")}
+        </div>
+      </div>
     </div>
   </div>`;
 }
+
+
 
 // =====================================
 // === EVENTOS DE DÍAS ===
@@ -140,7 +181,7 @@ function actualizarResumen() {
 enviarBtn.addEventListener("click", async () => {
   const dias = [...selectedDays];
   const nombre = document.getElementById("nombre").value.trim();
-  const empresa = empresaActual;
+  const empresa = document.getElementById("empresa").value.trim();
 
   if (!nombre) return alert("Ingresa tu nombre");
   if (!dias.length) return alert("Selecciona al menos un día");
@@ -155,15 +196,26 @@ enviarBtn.addEventListener("click", async () => {
   const detalle = dias.map((day, i) => {
     const fecha = formatearFechaCompleta(obtenerFechaPorIndice(i));
     const box = document.getElementById(`menu-${day}`);
-    return `*${day}* (${fecha})\n${box.querySelector(".entrada").value} | ${box.querySelector(".guarnicion").value} | ${box.querySelector(".fuerte").value}`;
+
+    const entrada = box.querySelector('input[name^="' + day + '-entrada"]:checked')?.value || "";
+    const guarnicion = box.querySelector('input[name^="' + day + '-guarnicion"]:checked')?.value || "";
+    const fuerte = box.querySelector('input[name^="' + day + '-fuerte"]:checked')?.value || "";
+
+    return `*${day}* (${fecha})
+Entrada: ${entrada}
+Guarnición: ${guarnicion}
+Plato fuerte: ${fuerte}`;
   }).join("\n\n");
 
-  let msg = `*${nombre}*\nEmpresa: ${empresa}\n\n${detalle}\n\nTotal: $${total}`;
+  let msg = `*${nombre}*\nEmpresa: ${empresa || "N/A"}\n\n${detalle}\n\nTotal: $${total}`;
+
   if (ahorro > 0) msg += `\nAhorras: $${ahorro} (${pct}%)`;
+
   msg += `\nGenerado: ${fechaGen}`;
 
   window.open(`https://wa.me/5537017294?text=${encodeURIComponent(msg)}`, "_blank");
 });
+
 
 // =====================================
 // === FECHAS ===
