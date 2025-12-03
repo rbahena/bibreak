@@ -184,14 +184,24 @@ enviarBtn.addEventListener("click", async () => {
 // === FECHAS ===
 // =====================================
 function obtenerFechaPorIndice(i) {
-  const h = new Date();
-  const d = (h.getDay() + 6) % 7;
-  const l = new Date(h);
-  l.setDate(h.getDate() - d);
-  const f = new Date(l);
-  f.setDate(l.getDate() + i);
-  return f;
+  const hoy = new Date();
+  const diaSemana = (hoy.getDay() + 6) % 7;
+
+  // Lunes de la semana actual
+  const lunesActual = new Date(hoy);
+  lunesActual.setDate(hoy.getDate() - diaSemana);
+
+  // Lunes de la semana siguiente
+  const lunesSiguiente = new Date(lunesActual);
+  lunesSiguiente.setDate(lunesActual.getDate() + 7);
+
+  // Día solicitado dentro de la semana siguiente
+  const fecha = new Date(lunesSiguiente);
+  fecha.setDate(lunesSiguiente.getDate() + i);
+
+  return fecha;
 }
+
 
 function formatearFechaCompleta(f, hora = false) {
   const o = { weekday: "long", day: "2-digit", month: "short", year: "numeric" };
@@ -209,12 +219,27 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function obtenerRangoSemana() {
-  const h = new Date();
-  const d = (h.getDay() + 6) % 7;
-  const l = new Date(h);
-  l.setDate(h.getDate() - d);
-  const v = new Date(l);
-  v.setDate(l.getDate() + 4);
-  const f = new Intl.DateTimeFormat("es-MX", { month: "long" });
-  return `(${l.getDate()} al ${v.getDate()} de ${f.format(v)} ${v.getFullYear()})`;
+  const hoy = new Date();
+
+  // Convertimos domingo=6, lunes=0, martes=1...
+  const diaSemana = (hoy.getDay() + 6) % 7;
+
+  // Lunes de la semana actual
+  const lunesActual = new Date(hoy);
+  lunesActual.setDate(hoy.getDate() - diaSemana);
+
+  // Lunes de la semana siguiente
+  const lunesSiguiente = new Date(lunesActual);
+  lunesSiguiente.setDate(lunesActual.getDate() + 7);
+
+  // Viernes de la semana siguiente
+  const viernesSiguiente = new Date(lunesSiguiente);
+  viernesSiguiente.setDate(lunesSiguiente.getDate() + 4);
+
+  const formatoMes = new Intl.DateTimeFormat("es-MX", { month: "long" });
+  const mes = formatoMes.format(viernesSiguiente);
+  const año = viernesSiguiente.getFullYear();
+
+  return `${lunesSiguiente.getDate()} al ${viernesSiguiente.getDate()} de ${mes} ${año}`;
 }
+
