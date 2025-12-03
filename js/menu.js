@@ -15,22 +15,6 @@ let selectedDays = new Set();
 let menuData = {}; // JSON completo
 let empresaActual = null;
 
-// =====================================
-// === VALIDAR SESIÓN DE EMPRESA ===
-// =====================================
-function validarEmpresa() {
-  empresaActual = localStorage.getItem("empresa");
-  if (!empresaActual) {
-    alert("No se detectó empresa, regresando al inicio.");
-    window.location.href = "index.html";
-    return;
-  }
-  const inputEmpresa = document.getElementById("empresa");
-  if (inputEmpresa) {
-    inputEmpresa.value = empresaActual;
-    inputEmpresa.setAttribute("readonly", true);
-  }
-}
 
 // =====================================
 // === CARGAR MENU DESDE JSON ===
@@ -214,7 +198,6 @@ function formatearFechaCompleta(f, hora = false) {
 // === INICIO ===
 // =====================================
 document.addEventListener("DOMContentLoaded", () => {
-  validarEmpresa();
   cargarMenu();
   document.getElementById("rangoSemana").textContent = obtenerRangoSemana();
 });
