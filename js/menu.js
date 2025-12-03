@@ -121,8 +121,9 @@ dayButtons.forEach(btn => {
 // === PRECIOS ===
 // =====================================
 function calcularPrecio(cantidad) {
-  return cantidad >= 4 ? 80 : cantidad === 3 ? 85 : 90;
+  return cantidad >= 5 ? 80 : cantidad >= 3 ? 85 : 90;
 }
+
 
 
 // =====================================
