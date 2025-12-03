@@ -1,12 +1,4 @@
 {
-  "empresas": [
-    "aguila",
-    "el aguila",
-    "El Aguila",
-    "Aguila",
-    "Airbus"
-  ],
-
   "menu": {
     "Lunes": {
       "activo": true,
