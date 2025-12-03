@@ -37,7 +37,7 @@ function validarEmpresa() {
 // =====================================
 async function cargarMenu() {
   try {
-    const response = await fetch("menu.json");
+    const response = await fetch("../resources/menu.json");
     if (!response.ok) throw new Error("No se pudo cargar JSON");
     menuData = await response.json();
 
