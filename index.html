@@ -183,123 +183,134 @@
   </section>
 
 
-
-  <!-- PLANES -->
-  <!-- PLANES -->
-  <section id="plans" class="py-20 bg-gray-50 border-t fade-in">
+  <!-- PLANES PREMIUM -->
+  <section id="plans" class="py-24 bg-gradient-to-b from-gray-100 to-white border-t fade-in">
     <div class="max-w-6xl mx-auto px-6 text-center">
 
-      <h2 class="text-3xl font-extrabold mb-2">Nuestros planes</h2>
+      <h2 class="text-3xl font-semibold mb-2 text-gray-900">
+        Elige tu plan ideal
+      </h2>
 
-      <p class="text-sm font-bold text-green-600 mb-6 uppercase tracking-wide">
-        Precios especiales de lanzamiento · Solo diciembre 2025
+      <p class="text-sm font-semibold text-yellow-600 uppercase tracking-widest mb-4">
+        ✨ Precios especiales de lanzamiento · Diciembre 2025
       </p>
 
-      <p class="text-gray-600 mb-10">
-        Elige la forma más práctica y económica de disfrutar tu comida
+      <p class="text-gray-600 mb-14 max-w-2xl mx-auto">
+        Diseñamos cada plan para adaptarse a tu ritmo sin sacrificar calidad, servicio ni sabor.
       </p>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-gray-700">
 
-        <!-- PLAN INDIVIDUAL -->
-        <div class="p-8 bg-white rounded-2xl shadow-md hover:shadow-lg transition flex flex-col h-full">
-
-          <h3 class="text-2xl font-semibold mb-2 text-green-700">Individual semanal</h3>
-
-          <p class="text-gray-600 mb-4">
-            Selecciona tus comidas desde el lunes hasta el viernes en un solo pedido.
-            Olvídate de pedir todos los días y paga menos por tu plan completo.
-          </p>
-
-          <p class="text-4xl font-bold text-green-600 mb-3">
-            $80 MXN <span class="text-base text-gray-500">/ comida</span>
-          </p>
-
-          <p class="text-sm text-gray-600 mb-4">
-            💰 Total semanal desde <b>$400 MXN</b> (5 comidas)
-          </p>
-
-          <ul class="text-left text-sm text-gray-600 mb-6 space-y-2">
-            <li>✅ Eliges tus platillos de la semana completa</li>
-            <li>✅ Pagas un solo pedido</li>
-            <li>✅ Aseguras tu comida todos los días</li>
-            <li>✅ Precio preferencial semanal</li>
-          </ul>
-
-          <a href="pages/menu.html"
-            class="inline-block mt-auto px-6 py-3 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition text-sm font-semibold">
-            Contratar plan semanal
-          </a>
-
-        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-gray-700">
 
         <!-- PLAN AMIGUS -->
         <div
-          class="p-8 bg-white rounded-2xl shadow-md hover:shadow-lg transition relative overflow-hidden flex flex-col h-full">
+          class="p-8 bg-white rounded-3xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 flex flex-col border border-gray-100">
 
-          <div class="absolute top-3 right-3 bg-green-600 text-white text-xs px-3 py-1 rounded-full shadow">
-            Popular
-          </div>
+          <h3 class="text-xl font-bold mb-1 text-green-700 uppercase tracking-wider">
+            Amigos
+          </h3>
 
-          <h3 class="text-2xl font-semibold mb-2 text-green-700">Amigus</h3>
-
-          <p class="text-gray-600 mb-4">
-            Júntate con tus compañeros de oficina o amigos y hagan su pedido juntos.
-            Entre más seamos, todos pagan menos.
+          <p class="text-gray-600 text-sm mb-4">
+            Ideal para equipos y grupos.
           </p>
 
-          <p class="text-4xl font-bold text-green-600 mb-3">
-            $85 MXN <span class="text-base text-gray-500">/ persona</span>
+          <p class="text-4xl font-extrabold text-gray-900 mb-2">
+            $85 <span class="text-sm text-gray-500 font-medium">/ persona</span>
           </p>
 
-          <p class="text-sm text-gray-600 mb-4">
-            👯 Total por grupo desde <b>$255 MXN</b> (3 personas)
+          <p class="text-xs text-gray-500 mb-5">
+            Desde <b>$255 MXN</b> por día (3 personas)
           </p>
 
-          <ul class="text-left text-sm text-gray-600 mb-6 space-y-2">
-            <li>✅ Mínimo 3 personas</li>
-            <li>✅ Cada quien elige su comida</li>
-            <li>✅ Un solo envío</li>
-            <li>✅ Precio preferencial por grupo</li>
+          <ul class="text-left text-sm text-gray-600 mb-8 space-y-2">
+            <li>✔ Pedido en grupo (3 personas min)</li>
+            <li>✔ Precio por día</li>
+            <li>✔ Ahorro por volumen al día</li>
+            <li>✔ Menú individual</li>
           </ul>
 
           <a href="amigus.html"
-            class="inline-block mt-auto px-6 py-3 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition text-sm font-semibold">
+            class="mt-auto w-full px-6 py-3 rounded-xl bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition">
             Pedir en grupo
           </a>
+        </div>
 
+        <!-- PLAN INDIVIDUAL PREFERIDO -->
+        <div
+          class="relative p-9 rounded-3xl shadow-xl transform scale-105 bg-gradient-to-br from-yellow-50 via-white to-white border-2 border-yellow-500 flex flex-col overflow-hidden">
+
+          <!-- Brillo oro -->
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-100/50 to-transparent animate-shine">
+          </div>
+
+          <!-- Badge -->
+          <!--<div class="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full 
+         flex items-center justify-center shadow-lg border border-yellow-300">
+
+            <span class="text-xl text-yellow-900">★</span>
+
+          </div>-->
+
+          <h3 class="text-xl font-bold mb-1 text-yellow-700 uppercase tracking-wider">
+            Individual semanal
+          </h3>
+
+          <p class="text-gray-700 text-sm mb-4">
+            La forma más cómoda y económica de comer bien entre semana.
+          </p>
+
+          <p class="text-4xl font-extrabold text-gray-900 mb-2">
+            $80 <span class="text-sm text-gray-600 font-medium">/ comida</span>
+          </p>
+
+          <p class="text-xs text-gray-500 mb-5">
+            Desde <b>$400 MXN</b> por semana (5 comidas)
+          </p>
+
+          <ul class="text-left text-sm text-gray-800 mb-9 space-y-2 font-medium">
+            <li>✔ Menú completo semanal</li>
+            <li>✔ Un solo pago</li>
+            <li>✔ Ahorro máximo</li>
+            <li>✔ Programa una sola vez para toda la semana</li>
+          </ul>
+
+          <a href="pages/menu.html"
+            class="mt-auto w-full px-6 py-3 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-400 text-gray-900 font-bold shadow hover:opacity-90 transition">
+            Elegir este plan
+          </a>
         </div>
 
         <!-- PLAN POR DÍA -->
         <div
-          class="p-8 bg-white rounded-2xl shadow-md hover:shadow-lg transition border border-gray-200 flex flex-col h-full">
+          class="p-8 bg-white rounded-3xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 flex flex-col border border-gray-200">
 
-          <h3 class="text-2xl font-semibold mb-2 text-green-700">Por día</h3>
+          <h3 class="text-xl font-bold mb-1 text-gray-800 uppercase tracking-wider">
+            Por día
+          </h3>
 
-          <p class="text-gray-600 mb-4">
-            Ideal si solo quieres pedir de vez en cuando o probar nuestro servicio
-            sin comprometerte toda la semana.
+          <p class="text-gray-600 text-sm mb-4">
+            Ideal para pedidos ocasionales.
           </p>
 
-          <p class="text-4xl font-bold text-green-600 mb-3">
-            $90 MXN <span class="text-base text-gray-500">/ comida</span>
+          <p class="text-4xl font-extrabold text-gray-900 mb-2">
+            $90 <span class="text-sm text-gray-500 font-medium">/ comida</span>
           </p>
 
-          <p class="text-sm text-gray-600 mb-4">
-            📅 Pide únicamente el día que quieras
+          <p class="text-xs text-gray-500 mb-5">
+            Solo pide cuando lo necesites.
           </p>
 
-          <ul class="text-left text-sm text-gray-600 mb-6 space-y-2">
-            <li>✅ Sin mínimo de días</li>
-            <li>✅ Elige libremente</li>
-            <li>✅ Ideal para probar</li>
-            <li>✅ No requiere plan</li>
+          <ul class="text-left text-sm text-gray-600 mb-8 space-y-2">
+            <li>✔ Sin mínimos</li>
+            <li>✔ Flexibilidad total</li>
+            <li>✔ Ideal para probar</li>
+            <li>✔ Pedido libre</li>
           </ul>
 
           <a href="pages/menu.html"
-            class="inline-block mt-auto px-6 py-3 bg-gray-700 text-white rounded-lg shadow hover:bg-gray-800 transition text-sm font-semibold">
+            class="mt-auto w-full px-6 py-3 rounded-xl bg-gray-800 text-white font-semibold shadow hover:bg-gray-900 transition">
             Pedir por día
           </a>
-
         </div>
 
       </div>
@@ -307,24 +318,35 @@
   </section>
 
 
-
-
   <!-- QUIÉNES SOMOS -->
-  <section id="about" class="py-20 border-t fade-in">
+  <section id="about" class="py-20 border-t fade-in bg-white">
     <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-semibold mb-4">Quiénes somos</h2>
+
+      <h2 class="text-3xl font-semibold mb-4">
+        Más que comida, una solución diaria
+      </h2>
+
       <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">
-        Somos un equipo apasionado por la buena comida y el servicio
-        eficiente. Combinamos recetas caseras con un sistema ágil de
-        pedidos y entregas para oficinas.
+        En <b>Bibreak</b> creamos experiencias prácticas alrededor de la comida.
+        Combinamos recetas caseras de calidad con un sistema ágil de pedidos y entregas
+        diseñado especialmente para oficinas que buscan comodidad, buen sabor y confianza
+        en cada comida.
       </p>
-      <a href="https://wa.me/5537017294?text=Hola!%20Quiero%20más%20información%20sobre%20TuComidaDiaria"
+
+      <p class="mt-4 text-gray-500 text-sm max-w-xl mx-auto">
+        Nuestro objetivo es ayudarte a resolver el “¿qué comemos hoy?” de forma simple,
+        eficiente y deliciosa.
+      </p>
+
+      <a href="https://wa.me/5537017294?text=Hola%20buen%20día%0AMe%20gustaría%20recibir%20más%20información%20sobre%20sus%20planes%20para%20evaluar%20la%20posibilidad%20de%20ofrecer%20el%20servicio%20en%20mi%20empresa.%0AGracias."
         target="_blank"
-        class="inline-block mt-6 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 shadow transition text-sm">
-        Contáctanos por WhatsApp
+        class="inline-block mt-8 px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 shadow-md transition text-sm font-semibold">
+        Solicitar información por WhatsApp
       </a>
+
     </div>
   </section>
+
 
 
 
