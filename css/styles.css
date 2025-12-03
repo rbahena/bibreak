@@ -12,3 +12,23 @@ html {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Estilos para el aviso de lanzamiento oficial */
+
+@keyframes shine {
+    0% {
+        transform: translateX(-120%);
+    }
+
+    50% {
+        transform: translateX(120%);
+    }
+
+    100% {
+        transform: translateX(120%);
+    }
+}
+
+.animate-shine {
+    animation: shine 2.8s ease-in-out infinite;
+}
