@@ -11,6 +11,10 @@ const menusContainer = document.getElementById("menusContainer");
 const resumen = document.getElementById("resumen");
 const enviarBtn = document.getElementById("enviarPedido");
 
+
+const btnResumen = document.getElementById("btnResumen");
+const resumenBox = document.getElementById("resumenBox");
+
 let selectedDays = new Set();
 let menuData = {}; // JSON completo
 
@@ -148,6 +152,53 @@ dayButtons.forEach(btn => {
 function calcularPrecio(cantidad) {
   return cantidad >= 5 ? 80 : cantidad >= 3 ? 85 : 90;
 }
+
+
+// =====================================
+// === SCROLL AL RESUMEN (BOTÓN FLOTANTE)
+// =====================================
+
+// =====================================
+// === SCROLL AL RESUMEN (BOTÓN FLOTANTE)
+// =====================================
+document.addEventListener("DOMContentLoaded", () => {
+  const btnResumen = document.getElementById("btnResumen");
+  const resumenBox = document.getElementById("resumenBox");
+
+  if (!btnResumen) {
+    console.warn("❌ No existe btnResumen");
+    return;
+  }
+
+  if (!resumenBox) {
+    console.warn("❌ No existe resumenBox");
+    return;
+  }
+
+  btnResumen.addEventListener("click", () => {
+    resumenBox.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+});
+
+
+function actualizarBotonResumen() {
+  const contador = document.getElementById("contadorResumen");
+  if (!contador) return;
+
+  const total = selectedDays.size;
+  contador.textContent = total ? `🧾 Resumen (${total})` : "🧾 Resumen";
+}
+
+// Llama esto cada vez que cambias días:
+const _actualizarResumenOriginal = actualizarResumen;
+actualizarResumen = function () {
+  _actualizarResumenOriginal();
+  actualizarBotonResumen();
+};
+
 
 
 
