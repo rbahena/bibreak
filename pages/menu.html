@@ -34,25 +34,28 @@
     <!-- COLUMNA IZQUIERDA -->
     <div class="lg:col-span-2">
 
-      <!-- TITULO -->
-      <div class="mb-5 flex flex-col sm:flex-row sm:items-center sm:gap-3">
+      <div class="mb-5 flex flex-col">
 
+        <!-- TÍTULO Y FECHA -->
         <div class="flex flex-col">
           <span class="text-[#1f2937] text-sm uppercase tracking-wide font-medium">
             Menú de la semana
           </span>
-          <span id="rangoSemana" class="text-[#1f2937] text-lg font-semibold"></span>
+
+          <span id="rangoSemana" class="text-[#1f2937] text-lg font-semibold">
+          </span>
         </div>
 
         <!-- BADGE -->
-        <div class="relative group mt-2 sm:mt-0">
-          <div
-            class="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full shadow cursor-pointer bg-[#111827] text-white tracking-wide">
+        <div class="relative group mt-2 w-max">
+          <div class="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full shadow cursor-pointer 
+      bg-[#111827] text-white tracking-wide">
             Plan por día
           </div>
 
+          <!-- TOOLTIP -->
           <div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 pointer-events-none
-            bg-gray-900 text-white text-xs rounded-md px-3 py-2 shadow w-56 text-center">
+      bg-gray-900 text-white text-xs rounded-md px-3 py-2 shadow w-56 text-center">
             Ordena solo cuando lo necesites.
           </div>
         </div>
