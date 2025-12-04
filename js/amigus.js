@@ -55,7 +55,13 @@ function agregarPersona() {
     <input 
       type="text" 
       placeholder="Nombre de la persona"
-      class="nombre w-full border p-2 rounded mb-3"
+      class="nombre w-full border p-2 rounded mb-2"
+    />
+
+    <input 
+      type="text" 
+      placeholder="Empresa / Piso / Área"
+      class="empresaPersona w-full border p-2 rounded mb-3"
     />
 
     <select class="entrada w-full border p-2 rounded mb-2" disabled>
@@ -78,6 +84,7 @@ function agregarPersona() {
     container.appendChild(div);
     actualizarTotal();
 }
+
 
 
 
@@ -203,4 +210,46 @@ function validarNombres() {
     }
     return true;
 }
+
+
+// ==========================
+// FECHA SEMANA SIGUIENTE
+// ==========================
+function obtenerRangoSemana() {
+    const hoy = new Date();
+
+    // Convertimos domingo=6, lunes=0...
+    const diaSemana = (hoy.getDay() + 6) % 7;
+
+    // Lunes de la semana actual
+    const lunesActual = new Date(hoy);
+    lunesActual.setDate(hoy.getDate() - diaSemana);
+
+    // Lunes de la semana siguiente
+    const lunesSiguiente = new Date(lunesActual);
+    lunesSiguiente.setDate(lunesActual.getDate() + 7);
+
+    // Viernes de la semana siguiente
+    const viernesSiguiente = new Date(lunesSiguiente);
+    viernesSiguiente.setDate(lunesSiguiente.getDate() + 4);
+
+    const formatoMes = new Intl.DateTimeFormat("es-MX", { month: "long" });
+    const mes = formatoMes.format(viernesSiguiente);
+    const año = viernesSiguiente.getFullYear();
+
+    return `${lunesSiguiente.getDate()} al ${viernesSiguiente.getDate()} de ${mes} ${año}`;
+}
+
+
+// PINTAR AUTOMÁTICAMENTE EN EL HTML
+function pintarRangoSemana() {
+    const el = document.getElementById("rangoSemana");
+    if (!el) return;
+    el.textContent = obtenerRangoSemana();
+}
+
+
+// EJECUTAR AL CARGAR
+document.addEventListener("DOMContentLoaded", pintarRangoSemana);
+
 
