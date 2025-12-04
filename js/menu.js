@@ -54,6 +54,31 @@ function preseleccionarDias() {
 }
 
 
+function configurarPlanUI() {
+  const params = new URLSearchParams(window.location.search);
+  const plan = params.get("plan") || "dia";
+
+  const badge = document.getElementById("badgePlan");
+  const tooltip = document.getElementById("tooltipPlan");
+
+  if (!badge || !tooltip) return;
+
+  if (plan === "semanal") {
+    badge.textContent = "Plan semanal";
+    badge.classList.replace("bg-[#111827]", "bg-green-700");
+
+    tooltip.textContent = "Recibe tu comida toda la semana con precio preferencial.";
+  } else {
+    badge.textContent = "Plan por día";
+    badge.classList.replace("bg-green-700", "bg-[#111827]");
+
+    tooltip.textContent = "Ordena solo cuando lo necesites.";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", configurarPlanUI);
+
+
 // =====================================
 // === CONFIGURAR BOTONES DE DÍAS ===
 // =====================================
