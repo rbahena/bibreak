@@ -4,17 +4,20 @@ const container = document.getElementById("personasContainer");
 const totalEl = document.getElementById("total");
 const diaGeneral = document.getElementById("diaGeneral");
 
+const bloquePersonas = document.getElementById("bloquePersonas");
+
 // CARGA JSON
 fetch("../resources/menu.json")
-  .then(r => r.json())
-  .then(data => {
-    console.log("JSON recibido:", data);
-    menu = data.menu;
-    console.log("Menú cargado:", menu);
-    cargarDias();
-    inicializarPersonas();
-  })
-  .catch(err => console.error("Error cargando menú:", err));
+    .then(r => r.json())
+    .then(data => {
+        console.log("JSON recibido:", data);
+        menu = data.menu;
+        console.log("Menú cargado:", menu);
+        cargarDias();
+        inicializarPersonas();
+    })
+    .catch(err => console.error("Error cargando menú:", err));
+
 
 
 
@@ -82,11 +85,19 @@ function agregarPersona() {
 diaGeneral.addEventListener("change", () => {
 
     const dia = diaGeneral.value;
-    if (!menu[dia]) return;
+
+    if (!dia || !menu[dia]) {
+        bloquePersonas.classList.add("hidden");
+        return;
+    }
+
+    // Mostrar bloque
+    bloquePersonas.classList.remove("hidden");
 
     const cards = document.querySelectorAll("#personasContainer > div");
 
     cards.forEach(card => {
+
         cargarOpciones(card.querySelector(".entrada"), menu[dia].entrada);
         cargarOpciones(card.querySelector(".guarnicion"), menu[dia].guarnicion);
         cargarOpciones(card.querySelector(".fuerte"), menu[dia].fuerte);
@@ -95,6 +106,7 @@ diaGeneral.addEventListener("change", () => {
         card.querySelector(".guarnicion").disabled = false;
         card.querySelector(".fuerte").disabled = false;
     });
+
 });
 
 
