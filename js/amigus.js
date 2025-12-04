@@ -5,14 +5,17 @@ const totalEl = document.getElementById("total");
 const diaGeneral = document.getElementById("diaGeneral");
 
 // CARGA JSON
-fetch("menu.json")
-    .then(r => r.json())
-    .then(data => {
-        menu = data.menu;
-        cargarDias();
-        inicializarPersonas();
-    })
-    .catch(err => console.error("Error cargando menú:", err));
+fetch("../resources/menu.json")
+  .then(r => r.json())
+  .then(data => {
+    console.log("JSON recibido:", data);
+    menu = data.menu;
+    console.log("Menú cargado:", menu);
+    cargarDias();
+    inicializarPersonas();
+  })
+  .catch(err => console.error("Error cargando menú:", err));
+
 
 
 // CARGAR DÍAS EN SELECT GENERAL
