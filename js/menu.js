@@ -30,11 +30,29 @@ async function cargarMenu() {
 
     console.log("JSON cargado", menuData);
     configurarDias();
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("plan") === "semanal") {
+      preseleccionarDias();
+    }
   } catch (e) {
     console.error("Error:", e);
     alert("Error cargando archivo menu.json");
   }
 }
+
+function preseleccionarDias() {
+  dayButtons.forEach(btn => {
+    if (btn.disabled) return;
+
+    const day = btn.dataset.day;
+
+    if (!selectedDays.has(day)) {
+      btn.click(); // 👈 Esto reutiliza tu lógica existente (no rompe nada)
+    }
+  });
+}
+
 
 // =====================================
 // === CONFIGURAR BOTONES DE DÍAS ===
