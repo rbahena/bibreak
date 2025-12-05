@@ -90,7 +90,7 @@ function configurarDias() {
     const config = menuData.menu[day];
 
     const tooltip = btn.querySelector("span");
-    const fecha = obtenerFechaPorIndice(index);
+    const fecha = obtenerFechaPorNombre(day);
     const fechaTexto = formatearFechaCompleta(fecha);
 
     if (!config || config.activo === false) {
@@ -118,8 +118,7 @@ function createMenuForDay(day) {
     return `<div class="bg-red-50 p-3 rounded">No hay servicio para ${day}</div>`;
   }
 
-  const index = [...selectedDays].length;
-  const fecha = obtenerFechaPorIndice(index);
+  const fecha = obtenerFechaPorNombre(day);
   const fechaTexto = fecha.toLocaleDateString("es-MX", {
     day: "2-digit",
     month: "short"
@@ -288,7 +287,7 @@ enviarBtn.addEventListener("click", async () => {
   const fechaGen = formatearFechaCompleta(new Date(), true);
 
   const detalle = dias.map((day, i) => {
-    const fecha = formatearFechaCompleta(obtenerFechaPorIndice(i));
+    const fecha = formatearFechaCompleta(obtenerFechaPorNombre(day));
     const box = document.getElementById(`menu-${day}`);
 
     const entrada = box.querySelector('input[name^="' + day + '-entrada"]:checked')?.value || "";
@@ -371,5 +370,24 @@ function obtenerRangoSemana() {
   const año = viernesSiguiente.getFullYear();
 
   return `${lunesSiguiente.getDate()} al ${viernesSiguiente.getDate()} de ${mes} ${año}`;
+}
+
+
+// Devuelve la fecha correspondiente al nombre del día (lunes, martes, ...)
+function obtenerFechaPorNombre(dayName) {
+  const dias = ["lunes", "martes", "miércoles", "jueves", "viernes"];
+  const idx = dias.findIndex(d => d.toLowerCase().startsWith(dayName.toLowerCase().slice(0, 3)));
+  // si no encuentra, por seguridad devolvemos el lunes siguiente
+  const hoy = new Date();
+  const diaSemana = (hoy.getDay() + 6) % 7;
+  const lunesActual = new Date(hoy);
+  lunesActual.setDate(hoy.getDate() - diaSemana);
+  const lunesSiguiente = new Date(lunesActual);
+  lunesSiguiente.setDate(lunesActual.getDate() + 7);
+
+  if (idx < 0) return new Date(lunesSiguiente);
+  const fecha = new Date(lunesSiguiente);
+  fecha.setDate(lunesSiguiente.getDate() + idx);
+  return fecha;
 }
 
