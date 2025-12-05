@@ -294,7 +294,8 @@ enviarBtn.addEventListener("click", async () => {
     const guarnicion = box.querySelector('input[name^="' + day + '-guarnicion"]:checked')?.value || "";
     const fuerte = box.querySelector('input[name^="' + day + '-fuerte"]:checked')?.value || "";
 
-    return `*${day}* (${fecha})
+    return `*${day}* 
+📦 Entrega programada para el día ${fecha}
 Entrada: ${entrada}
 Guarnición: ${guarnicion}
 Plato fuerte: ${fuerte}`;
@@ -304,7 +305,7 @@ Plato fuerte: ${fuerte}`;
 
   if (ahorro > 0) msg += `\nAhorras: $${ahorro} (${pct}%)`;
 
-  msg += `\nGenerado: ${fechaGen}`;
+  msg += `\nSolicitud generada: ${fechaGen}`;
 
   window.open(`https://wa.me/5537017294?text=${encodeURIComponent(msg)}`, "_blank");
 });
