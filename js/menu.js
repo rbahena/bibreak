@@ -305,7 +305,7 @@ Plato fuerte: ${fuerte}`;
 
   if (ahorro > 0) msg += `\nAhorras: $${ahorro} (${pct}%)`;
 
-  msg += `\nSolicitud generada: ${fechaGen}`;
+  msg += `\nPedido generado el ${fechaGen}`;
 
   window.open(`https://wa.me/5537017294?text=${encodeURIComponent(msg)}`, "_blank");
 });
