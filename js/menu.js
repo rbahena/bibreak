@@ -93,10 +93,14 @@ function configurarDias() {
     const fecha = obtenerFechaPorNombre(day);
     const fechaTexto = formatearFechaCompleta(fecha);
 
-    if (!config || config.activo === false) {
+    // Regresa verdadero en caso de que ya sean las 9 am
+    const cerrado = pedidosCerrados(day);
+
+    if (!config || config.activo === false || cerrado) {
       btn.disabled = true;
       btn.classList.add("opacity-50", "cursor-not-allowed", "bg-gray-200");
-      tooltip.textContent = "Sin servicio";
+      tooltip.textContent = cerrado ? "Pedidos cerrados hoy (9:00 AM)" : "Sin servicio";
+
     } else {
       btn.disabled = false;
       btn.classList.remove("opacity-50", "cursor-not-allowed", "bg-gray-200");
@@ -391,4 +395,26 @@ function obtenerFechaPorNombre(dayName) {
   fecha.setDate(lunesSiguiente.getDate() + idx);
   return fecha;
 }
+
+function pedidosCerrados(day) {
+  const hoy = new Date();
+  const ahora = new Date();
+
+  const fechaDia = obtenerFechaPorNombre(day);
+
+  // Reset horas para comparar solo fechas
+  hoy.setHours(0, 0, 0, 0);
+  fechaDia.setHours(0, 0, 0, 0);
+
+  // Hora límite
+  const horaLimite = new Date();
+  horaLimite.setHours(9, 0, 0, 0);
+
+  // Si es HOY y ya pasó la hora límite
+  const esHoy = hoy.getTime() === fechaDia.getTime();
+  const fueraDeHora = ahora >= horaLimite;
+
+  return esHoy && fueraDeHora;
+}
+
 
