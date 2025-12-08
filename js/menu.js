@@ -290,29 +290,47 @@ enviarBtn.addEventListener("click", async () => {
   const pct = Math.round((ahorro / sin) * 100);
   const fechaGen = formatearFechaCompleta(new Date(), true);
 
-  const detalle = dias.map((day, i) => {
+  const detalle = dias.map(day => {
     const fecha = formatearFechaCompleta(obtenerFechaPorNombre(day));
     const box = document.getElementById(`menu-${day}`);
+    if (!box) return `⚠️ Error cargando pedido de ${day}`;
 
-    const entrada = box.querySelector('input[name^="' + day + '-entrada"]:checked')?.value || "";
-    const guarnicion = box.querySelector('input[name^="' + day + '-guarnicion"]:checked')?.value || "";
-    const fuerte = box.querySelector('input[name^="' + day + '-fuerte"]:checked')?.value || "";
+    const entrada = box.querySelector(`input[name^="${day}-entrada"]:checked`)?.value || "";
+    const guarnicion = box.querySelector(`input[name^="${day}-guarnicion"]:checked`)?.value || "";
+    const fuerte = box.querySelector(`input[name^="${day}-fuerte"]:checked`)?.value || "";
 
-    return `*${day}* 
-📦 Entrega programada para el día ${fecha}
-Entrada: ${entrada}
-Guarnición: ${guarnicion}
-Plato fuerte: ${fuerte}`;
+    return `*Entrega:* ${fecha}
+*Entrada:* ${entrada}
+*Guarnición:* ${guarnicion}
+*Plato fuerte:* ${fuerte}`;
   }).join("\n\n");
 
-  let msg = `*${nombre}*\nEmpresa: ${empresa || "N/A"}\n\n${detalle}\n\nTotal: $${total}`;
+  let msg = `🍽️ *NUEVO PEDIDO | BIBREAK*
 
-  if (ahorro > 0) msg += `\nAhorras: $${ahorro} (${pct}%)`;
+*Cliente:* ${nombre}
+*Empresa:* ${empresa || "No especificada"}
 
-  msg += `\nPedido generado el ${fechaGen}`;
+*Detalle del pedido:*
+
+${detalle}
+
+*TOTAL A PAGAR:* $${total}
+`;
+
+  if (ahorro > 0) {
+    msg += `*Ahorro aplicado:* $${ahorro} (${pct}%)\n`;
+  }
+
+  msg += `
+*Pedido generado:* ${fechaGen}
+`;
 
   window.open(`https://wa.me/5537017294?text=${encodeURIComponent(msg)}`, "_blank");
 });
+
+
+
+
 
 
 // =====================================
