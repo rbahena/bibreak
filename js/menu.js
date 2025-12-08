@@ -310,12 +310,11 @@ enviarBtn.addEventListener("click", async () => {
 *Cliente:* ${nombre}
 *Empresa:* ${empresa || "No especificada"}
 
-*Detalle del pedido:*
+*Detalle de mi pedido*
 
 ${detalle}
 
-*TOTAL A PAGAR:* $${total}
-`;
+*TOTAL A PAGAR:* $${total}.00 MXN`;
 
   if (ahorro > 0) {
     msg += `*Ahorro aplicado:* $${ahorro} (${pct}%)\n`;

@@ -9,6 +9,7 @@
   <title>Bibreak</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="icon.png">
 </head>
 
 <body class="bg-white text-gray-800">
@@ -199,36 +200,36 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-gray-700">
 
-        <!-- PLAN AMIGUS -->
+        <!-- PLAN POR DÍA -->
         <div
-          class="p-8 bg-white rounded-3xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 flex flex-col border border-gray-100">
+          class="p-8 bg-white rounded-3xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 flex flex-col border border-gray-200">
 
-          <h3 class="text-xl font-bold mb-1 text-green-700 uppercase tracking-wider">
-            Amigos
+          <h3 class="text-xl font-bold mb-1 text-gray-800 uppercase tracking-wider">
+            Por día
           </h3>
 
           <p class="text-gray-600 text-sm mb-4">
-            Ideal para equipos y grupos.
+            Ideal para pedidos ocasionales.
           </p>
 
           <p class="text-3xl font-extrabold text-gray-900 mb-2">
-            $85.00 MXN <span class="text-sm text-gray-500 font-medium">/ persona</span>
+            $90.00 MXN <span class="text-sm text-gray-500 font-medium">/ comida</span>
           </p>
 
           <p class="text-xs text-gray-500 mb-5">
-            Desde <b>$255 MXN</b> por día (3 personas)
+            Solo pide cuando lo necesites.
           </p>
 
           <ul class="text-left text-sm text-gray-600 mb-8 space-y-2">
-            <li>✔ Pedido en grupo (3 personas min)</li>
-            <li>✔ Precio por día</li>
-            <li>✔ Ahorro por volumen al día</li>
-            <li>✔ Menú individual</li>
+            <li>✔ Sin mínimos</li>
+            <li>✔ Flexibilidad total</li>
+            <li>✔ Ideal para probar</li>
+            <li>✔ Pedido libre</li>
           </ul>
 
-          <a href="/pages/amigus.html"
-            class="mt-auto w-full px-6 py-3 rounded-xl bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition">
-            Pedir en grupo
+          <a href="pages/menu.html?plan=dia"
+            class="mt-auto w-full px-6 py-3 rounded-xl bg-gray-800 text-white font-semibold shadow hover:bg-gray-900 transition">
+            Pedir por día
           </a>
         </div>
 
@@ -278,39 +279,38 @@
           </a>
         </div>
 
-        <!-- PLAN POR DÍA -->
+        <!-- PLAN AMIGUS -->
         <div
-          class="p-8 bg-white rounded-3xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 flex flex-col border border-gray-200">
+          class="p-8 bg-white rounded-3xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 flex flex-col border border-gray-100">
 
-          <h3 class="text-xl font-bold mb-1 text-gray-800 uppercase tracking-wider">
-            Por día
+          <h3 class="text-xl font-bold mb-1 text-green-700 uppercase tracking-wider">
+            Amigos
           </h3>
 
           <p class="text-gray-600 text-sm mb-4">
-            Ideal para pedidos ocasionales.
+            Ideal para equipos y grupos.
           </p>
 
           <p class="text-3xl font-extrabold text-gray-900 mb-2">
-            $90.00 MXN <span class="text-sm text-gray-500 font-medium">/ comida</span>
+            $85.00 MXN <span class="text-sm text-gray-500 font-medium">/ persona</span>
           </p>
 
           <p class="text-xs text-gray-500 mb-5">
-            Solo pide cuando lo necesites.
+            Desde <b>$255 MXN</b> por día (3 personas)
           </p>
 
           <ul class="text-left text-sm text-gray-600 mb-8 space-y-2">
-            <li>✔ Sin mínimos</li>
-            <li>✔ Flexibilidad total</li>
-            <li>✔ Ideal para probar</li>
-            <li>✔ Pedido libre</li>
+            <li>✔ Pedido en grupo (3 personas min)</li>
+            <li>✔ Precio por día</li>
+            <li>✔ Ahorro por volumen al día</li>
+            <li>✔ Menú individual</li>
           </ul>
 
-          <a href="pages/menu.html?plan=dia"
-            class="mt-auto w-full px-6 py-3 rounded-xl bg-gray-800 text-white font-semibold shadow hover:bg-gray-900 transition">
-            Pedir por día
+          <a href="/pages/amigus.html"
+            class="mt-auto w-full px-6 py-3 rounded-xl bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition">
+            Pedir en grupo
           </a>
         </div>
-
       </div>
     </div>
   </section>
@@ -344,11 +344,7 @@
 
     </div>
   </section>
-
-
-
-
-
+  
   <!-- FOOTER -->
   <footer class="py-8 text-center text-sm text-gray-500 border-t fade-in">
     © <span id="year"></span> Bibreak — Comida práctica, fresca y deliciosa
