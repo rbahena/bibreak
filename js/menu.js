@@ -18,6 +18,8 @@ const resumenBox = document.getElementById("resumenBox");
 let selectedDays = new Set();
 let menuData = {}; // JSON completo
 
+let tipoPlan = "dia";
+
 
 // =====================================
 // === CARGAR MENU DESDE JSON ===
@@ -58,6 +60,7 @@ function configurarPlanUI() {
   const params = new URLSearchParams(window.location.search);
   const plan = params.get("plan") || "dia";
 
+  tipoPlan = plan;
   const badge = document.getElementById("badgePlan");
   const tooltip = document.getElementById("tooltipPlan");
 
@@ -186,11 +189,38 @@ dayButtons.forEach(btn => {
     } else {
       selectedDays.add(day);
       btn.classList.add("bg-green-600", "text-white");
-      menusContainer.insertAdjacentHTML("afterbegin", createMenuForDay(day));
+      const temp = document.createElement("div");
+      
+      temp.innerHTML = createMenuForDay(day);
+      const card = temp.firstElementChild;
+
+      if (tipoPlan === "semanal") {
+        menusContainer.appendChild(card);
+        ordenarCardsSemana();
+      } else {
+        menusContainer.prepend(card);
+      }
+
     }
     actualizarResumen();
   });
 });
+
+
+function ordenarCardsSemana() {
+  const orden = ["lunes","martes","miércoles","jueves","viernes"];
+
+  const cards = [...menusContainer.children];
+
+  cards.sort((a, b) => {
+    const aDia = a.id.replace("menu-", "");
+    const bDia = b.id.replace("menu-", "");
+    return orden.indexOf(aDia) - orden.indexOf(bDia);
+  });
+
+  cards.forEach(card => menusContainer.appendChild(card));
+}
+
 
 // =====================================
 // === PRECIOS ===
