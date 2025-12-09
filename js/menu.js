@@ -112,6 +112,22 @@ function configurarDias() {
   });
 }
 
+
+function usarSemanaSiguiente() {
+  const ahora = new Date();
+  const dia = ahora.getDay(); // 0=Dom, 5=Vie
+  const hora = ahora.getHours();
+
+  // viernes después de 13:00
+  if (dia === 5 && hora >= 13) return true;
+
+  // sábado o domingo
+  if (dia === 6 || dia === 0) return true;
+
+  return false;
+}
+
+
 // =====================================
 // === CREAR MENÚ DEL DÍA ===
 // =====================================
@@ -190,7 +206,7 @@ dayButtons.forEach(btn => {
       selectedDays.add(day);
       btn.classList.add("bg-green-600", "text-white");
       const temp = document.createElement("div");
-      
+
       temp.innerHTML = createMenuForDay(day);
       const card = temp.firstElementChild;
 
@@ -208,7 +224,7 @@ dayButtons.forEach(btn => {
 
 
 function ordenarCardsSemana() {
-  const orden = ["lunes","martes","miércoles","jueves","viernes"];
+  const orden = ["lunes", "martes", "miércoles", "jueves", "viernes"];
 
   const cards = [...menusContainer.children];
 
@@ -401,47 +417,50 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function obtenerRangoSemana() {
   const hoy = new Date();
-
-  // Convertimos domingo=6, lunes=0, martes=1...
   const diaSemana = (hoy.getDay() + 6) % 7;
 
-  // Lunes de la semana actual
   const lunesActual = new Date(hoy);
   lunesActual.setDate(hoy.getDate() - diaSemana);
 
-  // Lunes de la semana siguiente
-  const lunesSiguiente = new Date(lunesActual);
-  lunesSiguiente.setDate(lunesActual.getDate() + 7);
+  const lunes = usarSemanaSiguiente()
+    ? new Date(lunesActual.getTime() + 7 * 86400000)
+    : lunesActual;
 
-  // Viernes de la semana siguiente
-  const viernesSiguiente = new Date(lunesSiguiente);
-  viernesSiguiente.setDate(lunesSiguiente.getDate() + 4);
+  const viernes = new Date(lunes);
+  viernes.setDate(lunes.getDate() + 4);
 
   const formatoMes = new Intl.DateTimeFormat("es-MX", { month: "long" });
-  const mes = formatoMes.format(viernesSiguiente);
-  const año = viernesSiguiente.getFullYear();
 
-  return `${lunesSiguiente.getDate()} al ${viernesSiguiente.getDate()} de ${mes} ${año}`;
+  return `${lunes.getDate()} al ${viernes.getDate()} de ${formatoMes.format(viernes)} ${viernes.getFullYear()}`;
 }
+
 
 
 // Devuelve la fecha correspondiente al nombre del día (lunes, martes, ...)
 function obtenerFechaPorNombre(dayName) {
   const dias = ["lunes", "martes", "miércoles", "jueves", "viernes"];
-  const idx = dias.findIndex(d => d.toLowerCase().startsWith(dayName.toLowerCase().slice(0, 3)));
-  // si no encuentra, por seguridad devolvemos el lunes siguiente
+  const idx = dias.findIndex(d =>
+    d.toLowerCase().startsWith(dayName.toLowerCase().slice(0, 3))
+  );
+
   const hoy = new Date();
   const diaSemana = (hoy.getDay() + 6) % 7;
+
+  // lunes semana actual
   const lunesActual = new Date(hoy);
   lunesActual.setDate(hoy.getDate() - diaSemana);
-  const lunesSiguiente = new Date(lunesActual);
-  lunesSiguiente.setDate(lunesActual.getDate() + 7);
 
-  if (idx < 0) return new Date(lunesSiguiente);
-  const fecha = new Date(lunesSiguiente);
-  fecha.setDate(lunesSiguiente.getDate() + idx);
+  const lunes = usarSemanaSiguiente()
+    ? new Date(lunesActual.getTime() + 7 * 86400000)
+    : lunesActual;
+
+  if (idx < 0) return lunes;
+
+  const fecha = new Date(lunes);
+  fecha.setDate(lunes.getDate() + idx);
   return fecha;
 }
+
 
 function pedidosCerrados(day) {
   const hoy = new Date();
