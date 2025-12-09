@@ -1,30 +1,35 @@
 {
+  "config": {
+    "semana_inicio": "2025-12-15",
+    "mensaje_fuera_de_rango": "El menú de la próxima semana aún no ha sido cargado. Por favor intenta más tarde."
+  },
+
   "menu": {
-    "Lunes": {
+    "lunes": {
       "activo": true,
       "entrada": ["Consomé", "Sopa de fideo"],
       "guarnicion": ["Arroz", "Spagetti"],
       "fuerte": ["Tinga de res", "Pollo en mole verde", "Tortas de papa con ensalada"]
     },
-    "Martes": {
+    "martes": {
       "activo": true,
       "entrada": ["Consomé", "Sopa de codito"],
       "guarnicion": ["Arroz", "Spagetti"],
       "fuerte": ["Pollo empanizado", "Bistek en chile pasilla", "Enchiladas verdes con pollo"]
     },
-    "Miércoles": {
+    "miércoles": {
       "activo": true,
       "entrada": ["Consomé", "Sopa de caracol"],
       "guarnicion": ["Arroz", "Codito"],
       "fuerte": ["Chile relleno capeado", "Pollo en chile guajillo", "Tortas de platano con ensalada de manzana"]
     },
-    "Jueves": {
+    "jueves": {
       "activo": true,
       "entrada": ["Consomé", "Sopa de lentejas"],
-      "guarnicion": ["Arroz", "codigo"],
+      "guarnicion": ["Arroz", "Codigo"],
       "fuerte": ["Tortas de huanzontle en chile pasilla", "Pollo a la jardinera", "Enchiladas potosinas"]
     },
-    "Viernes": {
+    "viernes": {
       "activo": true,
       "entrada": ["Consomé", "Sopa de letras"],
       "guarnicion": ["Arroz", "Spagetti"],
