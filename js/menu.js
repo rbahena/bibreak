@@ -394,19 +394,56 @@ function actualizarResumen() {
   resumen.innerHTML = `<b>Días:</b> ${dias.join(", ")}<br><b>Total:</b> $${total}`;
 }
 
-enviarBtn?.addEventListener("click", () => {
+enviarBtn.addEventListener("click", async () => {
   const dias = [...selectedDays];
-  const nombre = document.getElementById("nombre")?.value?.trim();
+  const nombre = document.getElementById("nombre").value.trim();
+  const empresa = document.getElementById("empresa").value.trim();
+
   if (!nombre) return alert("Ingresa tu nombre");
-  if (!dias.length) return alert("Selecciona días");
+  if (!dias.length) return alert("Selecciona al menos un día");
 
-  let detalle = dias.map(d => {
-    const f = formatearFechaCompleta(obtenerFechaPorNombre(d));
-    return `${d}: ${f}`;
-  }).join("\n");
+  const precio = calcularPrecio(dias.length);
+  const total = precio * dias.length;
+  const sin = dias.length * 80;
+  const ahorro = sin - total;
+  const pct = Math.round((ahorro / sin) * 100);
+  const fechaGen = formatearFechaCompleta(new Date(), true);
 
-  const txt = `Pedido Bibreak\nCliente: ${nombre}\n\n${detalle}`;
-  window.open(`https://wa.me/5537017294?text=${encodeURIComponent(txt)}`, "_blank");
+  const detalle = dias.map(day => {
+    const fecha = formatearFechaCompleta(obtenerFechaPorNombre(day));
+    const box = document.getElementById(`menu-${day}`);
+    if (!box) return `⚠️ Error cargando pedido de ${day}`;
+
+    const entrada = box.querySelector(`input[name^="${day}-entrada"]:checked`)?.value || "";
+    const guarnicion = box.querySelector(`input[name^="${day}-guarnicion"]:checked`)?.value || "";
+    const fuerte = box.querySelector(`input[name^="${day}-fuerte"]:checked`)?.value || "";
+
+    return `*Entrega:* ${fecha}
+*Entrada:* ${entrada}
+*Guarnición:* ${guarnicion}
+*Plato fuerte:* ${fuerte}`;
+  }).join("\n\n");
+
+  let msg = `🍽️ *NUEVO PEDIDO | BIBREAK*
+
+*Cliente:* ${nombre}
+*Empresa:* ${empresa || "No especificada"}
+
+*Detalle de mi pedido*
+
+${detalle}
+
+*TOTAL A PAGAR:* $${total}.00 MXN`;
+
+  if (ahorro > 0) {
+    msg += `*Ahorro aplicado:* $${ahorro} (${pct}%)\n`;
+  }
+
+  msg += `
+*Pedido generado:* ${fechaGen}
+`;
+
+  window.open(`https://wa.me/5537017294?text=${encodeURIComponent(msg)}`, "_blank");
 });
 
 // =====================================
