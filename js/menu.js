@@ -283,7 +283,7 @@ function configurarDias() {
     if (!config || config.activo === false || cerrado) {
       btn.disabled = true;
       btn.classList.add("opacity-50", "cursor-not-allowed", "bg-gray-200");
-      if (tooltip) tooltip.textContent = cerrado ? "Pedidos cerrados hoy (9:00 AM)" : "Sin servicio";
+      if (tooltip) tooltip.textContent = cerrado ? "Pedidos cerrados despues de las 11:00 AM" : "Sin servicio";
     } else {
       btn.disabled = false;
       btn.classList.remove("opacity-50", "cursor-not-allowed", "bg-gray-200");
@@ -464,14 +464,26 @@ function obtenerFechaPorNombre(dayNormalized) {
   return f;
 }
 
-function pedidosCerrados(dayNormalized) {
-  const hoy = new Date();
+function pedidosCerrados(day) {
   const ahora = new Date();
-  const f = obtenerFechaPorNombre(dayNormalized);
-  hoy.setHours(0, 0, 0, 0); f.setHours(0, 0, 0, 0);
-  const limite = new Date(); limite.setHours(9, 0, 0, 0);
-  return hoy.getTime() === f.getTime() && ahora >= limite;
+  const fechaDia = obtenerFechaPorNombre(day);
+  if (!fechaDia) return true;
+
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0);
+
+  const limiteHoy = new Date(hoy);
+  limiteHoy.setHours(11, 0, 0, 0);
+
+  // si es día anterior → cerrrado
+  if (fechaDia < hoy) return true;
+
+  // si es hoy y ya pasó las 9am → cerrado
+  if (fechaDia.getTime() === hoy.getTime() && ahora >= limiteHoy) return true;
+
+  return false; // único caso habilitado: futuro o hoy antes de las 9
 }
+
 
 function obtenerRangoSemana() {
   const lunes = obtenerLunesActivo();
