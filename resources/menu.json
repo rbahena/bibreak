@@ -1,6 +1,6 @@
 {
   "config": {
-    "semana_inicio": "2025-12-08",
+    "semana_inicio": "2025-12-15",
     "mensaje_fuera_de_rango": "El menú de la próxima semana aún no ha sido cargado. Por favor intenta más tarde."
   },
 
@@ -9,31 +9,31 @@
       "activo": true,
       "entrada": ["Consomé", "Sopa de fideo"],
       "guarnicion": ["Arroz", "Spagetti"],
-      "fuerte": ["Tinga de res", "Pollo en mole verde", "Tortas de papa con ensalada"]
+      "fuerte": ["Pollo Encacahuatado", "Chuleta Ahumada a la Hawaiana", "Bistek en Chile Guajillo con Nopales"]
     },
     "martes": {
       "activo": true,
-      "entrada": ["Consomé", "Sopa de codito"],
+      "entrada": ["Consomé", "Sopa de caracol"],
       "guarnicion": ["Arroz", "Spagetti"],
-      "fuerte": ["Pollo empanizado", "Bistek en chile pasilla", "Enchiladas verdes con pollo"]
+      "fuerte": ["Pollo Frito con Ensalada Rusa", "Longaniza en Salsa Verde", "Tacos Dorados de Papa con Queso"]
     },
     "miércoles": {
       "activo": true,
-      "entrada": ["Consomé", "Sopa de caracol"],
-      "guarnicion": ["Arroz", "Codito"],
-      "fuerte": ["Chile relleno capeado", "Pollo en chile guajillo", "Tortas de platano con ensalada de manzana"]
+      "entrada": ["Consomé", "Sopa de lenteja"],
+      "guarnicion": ["Arroz", "Macarron"],
+      "fuerte": ["Chile Relleno Capeado o sin capear", "Tortitas de Camarón en Chile Pasilla", "Pollo en Jitomate con Champiñones"]
     },
     "jueves": {
       "activo": true,
-      "entrada": ["Consomé", "Sopa de lentejas"],
-      "guarnicion": ["Arroz", "Codigo"],
-      "fuerte": ["Tortas de huanzontle en chile pasilla", "Pollo a la jardinera", "Enchiladas potosinas"]
+      "entrada": ["Consomé", "Codito"],
+      "guarnicion": ["Arroz", "Macarron"],
+      "fuerte": ["Tortas de Huanzontle en Chile Pasilla", "Chicharron en Salsa Roja", "Pollo en Crema de Chipotle"]
     },
     "viernes": {
       "activo": true,
-      "entrada": ["Consomé", "Sopa de letras"],
+      "entrada": ["Consomé", "Sopa de papa"],
       "guarnicion": ["Arroz", "Spagetti"],
-      "fuerte": ["Pollo en mole rojo", "Chilaquiles con carne asada", "Tortas de carne en salsa verde"]
+      "fuerte": ["Filete de Pescado", "Pollo Entomatado", "Enjitomatadas con Pollo"]
     }
   }
 }

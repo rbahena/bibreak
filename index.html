@@ -22,9 +22,11 @@
         <span>break</span>
       </div>
       <nav id="navbar" class="hidden md:flex gap-8 text-sm text-gray-600" aria-label="Navegación principal">
-        <a href="#why" class="hover:text-orange-600">Por qué elegirnos</a>
         <a href="#how" class="hover:text-orange-600">Cómo funciona</a>
+        <a href="#why" class="hover:text-orange-600">Por qué elegirnos</a>
         <a href="#plans" class="hover:text-orange-600">Nuestros planes</a>
+        <a href="#package" class="hover:text-orange-600">Que incluye tu pedido</a>
+
         <a href="#about" class="hover:text-orange-600">Quiénes somos</a>
       </nav>
       <button id="menu-toggle" class="md:hidden px-3 py-2 border rounded-md text-gray-600">
@@ -36,9 +38,8 @@
   <!-- MENU MÓVIL -->
   <div id="mobile-menu"
     class="hidden flex-col bg-white border-t border-gray-200 absolute w-full left-0 top-16 p-6 space-y-4 text-center text-gray-700 z-50">
-    <a href="#why" class="block hover:text-green-600">Por qué elegirnos</a>
     <a href="#how" class="block hover:text-green-600">Cómo funciona</a>
-
+    <a href="#why" class="block hover:text-green-600">Por qué elegirnos</a>
     <a href="#about" class="block hover:text-green-600">Quiénes somos</a>
     <a href="#plans"
       class="block w-full px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition">Nuestros planes</a>
@@ -60,20 +61,12 @@
       <div class="relative z-10 px-6 py-4 text-gray-900">
 
         <p class="text-xs uppercase tracking-widest font-bold opacity-90">
-          ✨ Las Primeras entregas se realizaran el
+          ✨ Ya puedes reservar tus comidas de la semana
         </p>
 
         <p class="text-2xl font-extrabold mt-1">
-          8 de diciembre de 2025
+          15 al 19 de diciembre de 2025
         </p>
-
-        <p class="text-sm mt-2 font-medium">
-          Menú disponible desde el
-          <span class="font-extrabold underline decoration-yellow-700">
-            4 de diciembre
-          </span>
-        </p>
-
       </div>
     </div>
 
@@ -108,34 +101,6 @@
 
   </main>
 
-
-  <!-- POR QUÉ ELEGIRNOS -->
-  <section id="why" class="py-20 bg-gray-50 border-t fade-in">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-semibold mb-6">¿Por qué elegirnos?</h2>
-      <div class="grid md:grid-cols-3 gap-10 text-gray-700">
-        <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition">
-          <div class="text-green-600 text-4xl mb-3">💸</div>
-          <h3 class="font-semibold text-lg mb-2">Descuentos reales</h3>
-          <p>Cuantos más días selecciones, más ahorras. Obtén hasta un
-            <strong>20% de descuento</strong> en planes semanales y amigos.
-          </p>
-        </div>
-        <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition">
-          <div class="text-green-600 text-4xl mb-3">⏱️</div>
-          <h3 class="font-semibold text-lg mb-2">Entrega puntual</h3>
-          <p>Sabemos que tu tiempo vale. Entregamos en el horario acordado,
-            sin retrasos ni cargos extra.</p>
-        </div>
-        <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition">
-          <div class="text-green-600 text-4xl mb-3">🥗</div>
-          <h3 class="font-semibold text-lg mb-2">Comida casera</h3>
-          <p>Recetas auténticas, balanceadas y preparadas con ingredientes
-            frescos, tal como en casa.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- CÓMO FUNCIONA -->
   <section id="how" class="bg-white py-16 border-t fade-in">
@@ -181,154 +146,290 @@
     </div>
   </section>
 
+  <!-- POR QUÉ ELEGIRNOS -->
+  <section id="why" class="py-20 bg-gray-50 border-t fade-in">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-semibold mb-6">¿Por qué elegirnos?</h2>
+      <div class="grid md:grid-cols-3 gap-10 text-gray-700">
+        <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition">
+          <div class="text-green-600 text-4xl mb-3">💸</div>
+          <h3 class="font-semibold text-lg mb-2">Descuentos reales</h3>
+          <p>Cuantos más días selecciones, más ahorras. Obtén hasta un
+            <strong>20% de descuento</strong> en planes semanales y amigos.
+          </p>
+        </div>
+        <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition">
+          <div class="text-green-600 text-4xl mb-3">⏱️</div>
+          <h3 class="font-semibold text-lg mb-2">Entrega puntual</h3>
+          <p>Sabemos que tu tiempo vale. Entregamos en el horario acordado,
+            sin retrasos ni cargos extra.</p>
+        </div>
+        <div class="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition">
+          <div class="text-green-600 text-4xl mb-3">🥗</div>
+          <h3 class="font-semibold text-lg mb-2">Comida casera</h3>
+          <p>Recetas auténticas, balanceadas y preparadas con ingredientes
+            frescos, tal como en casa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- PLANES PREMIUM -->
-<section id="plans" class="py-24 bg-gradient-to-b from-gray-100 via-white to-white border-t fade-in">
-  <div class="max-w-6xl mx-auto px-6 text-center">
+  <section id="plans" class="py-24 bg-gradient-to-b from-gray-100 via-white to-white border-t fade-in">
+    <div class="max-w-6xl mx-auto px-6 text-center">
 
-    <h2 class="text-3xl font-bold mb-3 text-gray-900">
-      Elige tu plan ideal
-    </h2>
+      <h2 class="text-3xl font-bold mb-3 text-gray-900">
+        Elige tu plan ideal
+      </h2>
 
-    <p class="text-sm font-semibold text-yellow-600 uppercase tracking-widest mb-3">
-      ✨ Precios especiales de lanzamiento · Diciembre 2025
-    </p>
+      <p class="text-sm font-semibold text-yellow-600 uppercase tracking-widest mb-3">
+        ✨ Precios especiales de lanzamiento · Diciembre 2025
+      </p>
 
-    <p class="text-gray-600 mb-14 max-w-2xl mx-auto">
-      Alimentación práctica, deliciosa y diseñada para facilitar tus días laborales.
-    </p>
+      <p class="text-gray-600 mb-14 max-w-2xl mx-auto">
+        Alimentación práctica, deliciosa y diseñada para facilitar tus días laborales.
+      </p>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-gray-700">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 text-gray-700">
 
-      <!-- PLAN POR DÍA -->
-      <div class="p-8 bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col border border-gray-200">
+        <!-- PLAN POR DÍA -->
+        <div
+          class="p-8 bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col border border-gray-200">
 
-        <h3 class="text-xl font-bold mb-1 text-gray-800 uppercase tracking-wider">
-          Por día
-        </h3>
+          <h3 class="text-xl font-bold mb-1 text-gray-800 uppercase tracking-wider">
+            Por día
+          </h3>
 
-        <p class="text-gray-600 text-sm mb-3">
-          Ideal si comes fuera ocasionalmente.
-        </p>
+          <p class="text-gray-600 text-sm mb-3">
+            Ideal si comes fuera ocasionalmente.
+          </p>
 
-        <p class="text-3xl font-extrabold text-gray-900 mb-1">
-          $90.00 MXN <span class="text-sm text-gray-500 font-medium">/ comida</span>
-        </p>
+          <p class="text-3xl font-extrabold text-gray-900 mb-1">
+            $90.00 MXN <span class="text-sm text-gray-500 font-medium">/ comida</span>
+          </p>
 
-        <p class="text-xs text-gray-500 mb-4">
-          Pide solo cuando lo necesites.
-        </p>
+          <p class="text-xs text-gray-500 mb-4">
+            Pide solo cuando lo necesites.
+          </p>
 
-        <ul class="text-left text-sm text-gray-700 mb-6 space-y-2">
-          <li>🍽 Sin mínimos</li>
-          <li>🔄 Total flexibilidad</li>
-          <li>✅ Ideal para probar</li>
-          <li>📦 Pedido bajo demanda</li>
-        </ul>
+          <ul class="text-left text-sm text-gray-700 mb-6 space-y-2">
+            <li>🍽 Sin mínimos</li>
+            <li>🔄 Total flexibilidad</li>
+            <li>✅ Ideal para probar</li>
+            <li>📦 Pedido bajo demanda</li>
+          </ul>
 
-        <a href="pages/menu.html?plan=dia"
-          class="mt-auto w-full px-6 py-3 rounded-xl bg-gray-900 text-white font-semibold shadow hover:bg-black transition">
-          Quiero probar
-        </a>
+          <a href="pages/menu.html?plan=dia"
+            class="mt-auto w-full px-6 py-3 rounded-xl bg-gray-900 text-white font-semibold shadow hover:bg-black transition">
+            Quiero probar
+          </a>
 
-        <p class="text-xs text-gray-500 mt-3">
-          ✔ Sin compromiso · ✔ Cancela cuando quieras
-        </p>
+          <p class="text-xs text-gray-500 mt-3">
+            ✔ Sin compromiso · ✔ Cancela cuando quieras
+          </p>
 
-      </div>
+        </div>
 
-      <!-- PLAN SEMANAL PREFERIDO -->
-      <div class="relative p-9 rounded-3xl shadow-xl transform scale-105 
+        <!-- PLAN SEMANAL PREFERIDO -->
+        <div
+          class="relative p-9 rounded-3xl shadow-xl transform scale-105 
            hover:shadow-2xl hover:scale-[1.07] transition-all duration-300
            bg-gradient-to-br from-yellow-50 via-white to-white border-2 border-yellow-500 flex flex-col overflow-hidden">
 
-        <!-- Brillo -->
-        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-100/40 to-transparent animate-shine"></div>
+          <!-- Brillo -->
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-100/40 to-transparent animate-shine">
+          </div>
 
-        <!-- Badge -->
-        <div class="absolute top-4 left-4 bg-gradient-to-r from-yellow-500 to-amber-400 text-gray-900
+          <!-- Badge -->
+          <div class="absolute top-4 left-4 bg-gradient-to-r from-yellow-500 to-amber-400 text-gray-900
              text-xs font-bold px-3 py-1 rounded-full shadow uppercase tracking-wide">
-          Más vendido
+            Más vendido
+          </div>
+
+          <h3 class="text-xl font-bold mb-1 text-yellow-700 uppercase tracking-wider">
+            Individual semanal
+          </h3>
+
+          <p class="text-gray-700 text-sm mb-3">
+            Tu solución completa de lunes a viernes.
+          </p>
+
+          <p class="text-3xl font-extrabold text-gray-900 mb-1">
+            $80.00 MXN <span class="text-sm text-gray-600 font-medium">/ comida</span>
+          </p>
+
+          <p class="text-xs text-gray-500 mb-1">
+            Desde <b>$400 MXN</b> por semana (5 comidas)
+          </p>
+
+          <p class="text-xs text-green-600 font-semibold mb-4">
+            Ahorras más que pidiendo por día
+          </p>
+
+          <ul class="text-left text-sm text-gray-800 mb-7 space-y-2 font-medium">
+            <li>🍱 Menú completo semanal</li>
+            <li>💳 Un solo pago</li>
+            <li>💰 Ahorro máximo</li>
+            <li>📅 Programa una sola vez</li>
+          </ul>
+
+          <a href="pages/menu.html?plan=semanal"
+            class="mt-auto w-full px-6 py-3 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-400 text-gray-900 font-bold shadow hover:opacity-90 transition">
+            Quiero ahorrar
+          </a>
+
+          <p class="text-xs text-gray-500 mt-3">
+            ✔ Semana a semana · ✔ Sin contratos
+          </p>
+
         </div>
 
-        <h3 class="text-xl font-bold mb-1 text-yellow-700 uppercase tracking-wider">
-          Individual semanal
-        </h3>
+        <!-- PLAN AMIGOS -->
+        <div
+          class="p-8 bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col border border-gray-100">
 
-        <p class="text-gray-700 text-sm mb-3">
-          Tu solución completa de lunes a viernes.
+          <h3 class="text-xl font-bold mb-1 text-green-700 uppercase tracking-wider">
+            Amigos
+          </h3>
+
+          <p class="text-gray-600 text-sm mb-3">
+            Perfecto para equipos y oficinas.
+          </p>
+
+          <p class="text-3xl font-extrabold text-gray-900 mb-1">
+            $85.00 MXN <span class="text-sm text-gray-500 font-medium">/ persona</span>
+          </p>
+
+          <p class="text-xs text-gray-500 mb-4">
+            Desde <b>$255 MXN</b> por día (3 personas)
+          </p>
+
+          <ul class="text-left text-sm text-gray-700 mb-6 space-y-2">
+            <li>👥 Pedido en grupo</li>
+            <li>📊 Precio de volumen diario</li>
+            <li>🧾 Pedido individual</li>
+            <li>🥗 Menú personal por persona</li>
+          </ul>
+
+          <a href="/pages/amigus.html"
+            class="mt-auto w-full px-6 py-3 rounded-xl bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition">
+            Arma tu equipo
+          </a>
+
+          <p class="text-xs text-gray-500 mt-3">
+            ✔ Ideal para oficinas · ✔ Ahorro diario
+          </p>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- INCLUYE DETALLE -->
+  <!-- EXTRAS INCLUIDOS -->
+  <section id="package" class="py-20 bg-white border-t fade-in">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+
+      <h2 class="text-3xl font-semibold mb-6">
+        🍽️ ¿Qué incluye tu comida Bibreak?
+      </h2>
+
+      <p class="text-gray-600 mb-12 max-w-2xl mx-auto">
+        Un paquete completo, balanceado y listo para disfrutar en tu oficina.
+      </p>
+
+      <!-- CONTENIDO PRINCIPAL -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-gray-700">
+
+        <div class="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition">
+          <div class="text-green-600 text-4xl mb-3">🥣</div>
+          <h3 class="font-semibold">Primer tiempo</h3>
+          <p class="text-sm text-gray-600 mt-1">
+            Tazón con sopa o preparación ligera del día.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition">
+          <div class="text-green-600 text-4xl mb-3">🍚</div>
+          <h3 class="font-semibold">Segundo tiempo</h3>
+          <p class="text-sm text-gray-600 mt-1">
+            Plato con arroz, pasta o guarnición.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition">
+          <div class="text-green-600 text-4xl mb-3">🍗</div>
+          <h3 class="font-semibold">Guisado</h3>
+          <p class="text-sm text-gray-600 mt-1">
+            Plato fuerte del día, preparado al momento.
+          </p>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-6 shadow-sm hover:shadow-md transition">
+          <div class="text-green-600 text-4xl mb-3">🥤</div>
+          <h3 class="font-semibold">Bebida</h3>
+          <p class="text-sm text-gray-600 mt-1">
+            Vaso de agua natural fresca.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- EXTRAS -->
+      <div class="mt-12">
+
+        <p class="text-sm font-medium text-gray-600 mb-4">
+          Además, tu comida incluye:
         </p>
 
-        <p class="text-3xl font-extrabold text-gray-900 mb-1">
-          $80.00 MXN <span class="text-sm text-gray-600 font-medium">/ comida</span>
-        </p>
+        <div class="flex flex-wrap justify-center gap-3">
 
-        <p class="text-xs text-gray-500 mb-1">
-          Desde <b>$400 MXN</b> por semana (5 comidas)
-        </p>
+          <span
+            class="flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-xs text-gray-700 shadow-sm">
+            🍴 Cubiertos
+          </span>
 
-        <p class="text-xs text-green-600 font-semibold mb-4">
-          Ahorras más que pidiendo por día
-        </p>
+          <span
+            class="flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-xs text-gray-700 shadow-sm">
+            🌮 Tortillas
+          </span>
 
-        <ul class="text-left text-sm text-gray-800 mb-7 space-y-2 font-medium">
-          <li>🍱 Menú completo semanal</li>
-          <li>💳 Un solo pago</li>
-          <li>💰 Ahorro máximo</li>
-          <li>📅 Programa una sola vez</li>
-        </ul>
+          <span
+            class="flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-xs text-gray-700 shadow-sm">
+            🧂 Sal
+          </span>
 
-        <a href="pages/menu.html?plan=semanal"
-          class="mt-auto w-full px-6 py-3 rounded-xl bg-gradient-to-r from-yellow-500 to-amber-400 text-gray-900 font-bold shadow hover:opacity-90 transition">
-          Quiero ahorrar
-        </a>
+          <span
+            class="flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-xs text-gray-700 shadow-sm">
+            🌶️ Salsa
+          </span>
 
-        <p class="text-xs text-gray-500 mt-3">
-          ✔ Semana a semana · ✔ Sin contratos
+          <span
+            class="flex items-center gap-2 bg-gray-50 border border-gray-100 px-4 py-2 rounded-full text-xs text-gray-700 shadow-sm">
+            🫘 Frijoles*
+          </span>
+
+        </div>
+
+        <p class="text-[11px] text-gray-400 mt-3">
+          *Incluidos según el platillo del día
         </p>
 
       </div>
 
-      <!-- PLAN AMIGOS -->
-      <div class="p-8 bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col border border-gray-100">
-
-        <h3 class="text-xl font-bold mb-1 text-green-700 uppercase tracking-wider">
-          Amigos
-        </h3>
-
-        <p class="text-gray-600 text-sm mb-3">
-          Perfecto para equipos y oficinas.
-        </p>
-
-        <p class="text-3xl font-extrabold text-gray-900 mb-1">
-          $85.00 MXN <span class="text-sm text-gray-500 font-medium">/ persona</span>
-        </p>
-
-        <p class="text-xs text-gray-500 mb-4">
-          Desde <b>$255 MXN</b> por día (3 personas)
-        </p>
-
-        <ul class="text-left text-sm text-gray-700 mb-6 space-y-2">
-          <li>👥 Pedido en grupo</li>
-          <li>📊 Precio de volumen diario</li>
-          <li>🧾 Pedido individual</li>
-          <li>🥗 Menú personal por persona</li>
-        </ul>
-
-        <a href="/pages/amigus.html"
-          class="mt-auto w-full px-6 py-3 rounded-xl bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition">
-          Arma tu equipo
-        </a>
-
-        <p class="text-xs text-gray-500 mt-3">
-          ✔ Ideal para oficinas · ✔ Ahorro diario
-        </p>
-
+      <!-- FOOTER SELLING POINT -->
+      <div class="mt-12 text-sm text-gray-500 bg-gray-50 inline-block px-6 py-3 rounded-lg border border-gray-100">
+        ✅ Porción completa · ✅ Comida caliente · ✅ Lista para comer
       </div>
 
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- FIN EXTRAS -->
+
 
 
 
@@ -336,31 +437,38 @@
   <section id="about" class="py-20 border-t fade-in bg-white">
     <div class="max-w-4xl mx-auto px-6 text-center">
 
-      <h2 class="text-3xl font-semibold mb-4">
-        Más que comida, una solución diaria
+      <h2 class="text-3xl font-semibold mb-6">
+        Somos Bibreak
       </h2>
 
       <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">
-        En <b>Bibreak</b> creamos experiencias prácticas alrededor de la comida.
-        Combinamos recetas caseras de calidad con un sistema ágil de pedidos y entregas
-        diseñado especialmente para oficinas que buscan comodidad, buen sabor y confianza
-        en cada comida.
+        En <b>Bibreak</b> preparamos comida corrida pensada para el ritmo real de las oficinas.
+        Cocinamos platillos completos, caseros y bien servidos, y los entregamos listos para comer,
+        sin complicaciones, filas ni improvisaciones.
+      </p>
+
+      <p class="mt-4 text-gray-600 leading-relaxed max-w-2xl mx-auto">
+        No somos un restaurante tradicional ni una app genérica.
+        Somos un servicio enfocado en resolver, todos los días, una sola pregunta:
+        <b>¿qué comemos hoy en la oficina?</b>
       </p>
 
       <p class="mt-4 text-gray-500 text-sm max-w-xl mx-auto">
-        Nuestro objetivo es ayudarte a resolver el “¿qué comemos hoy?” de forma simple,
-        eficiente y deliciosa.
+        Planeamos el menú con anticipación, cuidamos los tiempos de pedido y entrega,
+        y nos enfocamos en ofrecer una experiencia confiable, clara y constante.
       </p>
 
       <a href="https://wa.me/5537017294?text=Hola%20buen%20día%0AMe%20gustaría%20recibir%20más%20información%20sobre%20sus%20planes%20para%20evaluar%20la%20posibilidad%20de%20ofrecer%20el%20servicio%20en%20mi%20empresa.%0AGracias."
         target="_blank"
-        class="inline-block mt-8 px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 shadow-md transition text-sm font-semibold">
+        class="inline-block mt-10 px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 shadow-md transition text-sm font-semibold">
         Solicitar información por WhatsApp
       </a>
 
     </div>
   </section>
-  
+  <!-- FIN QUIÉNES SOMOS -->
+
+
   <!-- FOOTER -->
   <footer class="py-8 text-center text-sm text-gray-500 border-t fade-in">
     © <span id="year"></span> Bibreak — Comida práctica, fresca y deliciosa
