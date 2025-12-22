@@ -384,7 +384,9 @@ function ordenarCardsSemana() {
 // =====================================
 // === RESUMEN/ENVÍO ===
 // =====================================
-function calcularPrecio(cantidad) { return cantidad >= 5 ? 80 : cantidad >= 3 ? 85 : 90; }
+function calcularPrecio(cantidad) {
+  return 75;
+}
 
 function actualizarResumen() {
   const dias = [...selectedDays];
@@ -435,10 +437,6 @@ ${detalle}
 
 *TOTAL A PAGAR:* $${total}.00 MXN`;
 
-  if (ahorro > 0) {
-    msg += `*Ahorro aplicado:* $${ahorro} (${pct}%)\n`;
-  }
-
   msg += `
 *Pedido generado:* ${fechaGen}
 `;
@@ -453,7 +451,7 @@ function formatearFechaCompleta(f, hora = false) {
   const o = { weekday: "long", day: "2-digit", month: "short", year: "numeric" };
   if (hora) { o.hour = "2-digit"; o.minute = "2-digit"; }
   return f.toLocaleDateString("es-MX", o).replace(".", "").toLowerCase();
-}
+  }
 
 function obtenerFechaPorNombre(dayNormalized) {
   const dias = ["lunes", "martes", "miercoles", "jueves", "viernes"];
